@@ -1,0 +1,65 @@
+{% extends 'main/index.html' %}
+
+{% block content %}
+<div id="page_content_inner">
+    <form action="{%url 'main:profile' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="uk-grid uk-flex-center">
+            <div class="uk-grid">
+                <div class="uk-width-1-1">
+                    <div class="user_heading_avatar fileinput fileinput-new" data-provides="fileinput">
+                        <div class="fileinput-new thumbnail">
+                            {% if user.employee.photo %}
+                            <img src="{{ user.employee.photo.url }}" alt="user avatar"/>
+                            {%endif%}
+                        </div>
+                        <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                        <div class="user_avatar_controls">
+                            <span class="btn-file">
+                                <span class="fileinput-new">
+                                    <i class="material-icons">
+                                        <span class="icon-Group--2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                            <span class="path4"></span>
+                                            <span class="path5"></span>
+                                        </span>
+                                    </i>
+                                </span>
+                                <span class="fileinput-exists"><i class="material-icons">&#xE86A;</i></span>
+                                <input type="file" name="auth_profile_photo" id="auth_profile_photo">
+                            </span>
+                            <a href="#" class="btn-file fileinput-exists" data-dismiss="fileinput"><i class="material-icons">&#xE5CD;</i></a>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="uk-margin-top uk-margin-small-bottom">Profile Photo</h2>
+                        <span class="uk-text-muted">(.png/jpg)(400x400)</span>
+                    </div>
+                </div>
+                <div class="uk-width-1-1 uk-margin-top">
+                    <div class="uk-form-row">
+                        <div class="uk-margin">
+                            <label>Name <strong class="uk-text-danger">*</strong></label>
+                            <input type="text" class="md-input label-fixed md-input-custom" placeholder="Name" value="{{ user.username }}" name="name">
+                        </div>
+                        <div class="uk-margin">
+                            <label>Email <strong class="uk-text-danger">*</strong></label>
+                            <input type="email" class="md-input label-fixed md-input-custom" placeholder="Email" value="{{ user.email }}" name="email">
+                        </div>
+                        <div class="uk-margin">
+                            <a href="{%url 'main:change' %}" class="md-btn md-btn-dark md-btn-block">Change Password</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="uk-float-right">
+            <button type="submit" class="md-btn md-btn-primary">Submit</button>
+            <button type="reset" class="md-btn">Reset</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}
+

@@ -1,0 +1,46 @@
+{% extends "main/index.html" %}
+{% load static %}
+{% block content %}
+<div id="page_content_inner">
+
+            <form action="{%url 'masters:updatefeatureicon' feature.id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+                <div class="uk-grid">
+                    <div class="uk-width-2-5">
+                        <div class="uk-grid uk-flex-center">
+                            <div class="uk-width-1-2">
+                                <input type="file" class="dropify" data-default-file="{{feature.image.url}}" name="image_file">
+                            </div>
+                        </div>
+                        <div class="uk-margin-medium-top uk-margin-large-bottom">
+                            <label>Icon Name <strong class="uk-text-danger">*</strong></label>
+                            <input type="text" class="md-input label-fixed md-input-custom" placeholder="Icon Name" name="icon_name" value="{{feature.name}}" required>
+                        </div>
+                        <!--<div class="uk-margin-top uk-margin-large-bottom gym_category_language">-->
+                            <!--<label>Language <strong class="uk-text-danger">*</strong></label>-->
+                            <!--<div class="uk-bg-white uk-border-dark uk-radius-5 uk-padding-half uk-margin-top">-->
+                                <!--<label for="radio_demo_1" class="inline-label">Language 1</label>-->
+                                <!--<input type="radio" id="radio_demo_1" name="radio_demo" class="uk-float-right" data-md-icheck />-->
+                            <!--</div>-->
+                            <!--<div class="uk-bg-white uk-border-dark uk-radius-5 uk-padding-half uk-margin-top">-->
+                                <!--<label for="radio_demo_2" class="inline-label">Language 2</label>-->
+                                <!--<input type="radio" id="radio_demo_2" name="radio_demo" class="uk-float-right" data-md-icheck />-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    </div>
+                    <div class="uk-width-3-5">
+                        <div class="uk-padding-2">
+                            <img src="{% static 'assets/img/gym_category.png' %}" width="500px">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md-fab-wrapper md-fab-in-card md-fab-speed-dial-horizontal">
+                    <button type="submit" class="md-btn md-btn-primary">Submit</button>
+                    <button type="reset" class="md-btn">Reset</button>
+                </div>
+            </form>
+
+        </div>
+{% endblock content %}
+

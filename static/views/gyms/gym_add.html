@@ -1,0 +1,242 @@
+{% extends "main/index.html" %}
+
+{% block content %}
+    <!--<div id="page_content">-->
+        <form action="{% url 'gym:addgym' %}" method="POST" enctype="multipart/form-data">
+         {% csrf_token %}
+        <div id="page_content_inner">
+
+            <div class="uk-grid">
+                <div class="uk-width-1-6">
+                    <input required type="file" class="dropify_gym_profile_photo" name="image_file">
+                </div>
+                <div class="uk-width-4-6">
+                    <input required type="file" class="dropify_gym_banner_image" name="image_file1" multiple>
+                </div>
+                <div class="uk-width-1-6">
+                    <input required type="file" class="dropify_gym_video" name="image_file2">
+                </div>
+            </div>
+
+            <div class="uk-grid">
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Gym Full Name <strong class="uk-text-danger">*</strong></label>
+                    <input required type="text" class="md-input label-fixed md-input-custom" placeholder="Gym Full Name" name="gym_name">
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Gym Username <strong class="uk-text-danger">*</strong></label>
+                    <input required type="text" class="md-input label-fixed md-input-custom" placeholder="Gym Username" name="gym_usernam">
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Email <strong class="uk-text-danger">*</strong></label>
+                    <input required type="email" class="md-input label-fixed md-input-custom" placeholder="Email" name="email">
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Website Url <strong class="uk-text-danger">*</strong></label>
+                    <input required type="text" class="md-input label-fixed md-input-custom" placeholder="Website Url" name="web_url">
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Phone Number <strong class="uk-text-danger">*</strong></label>
+                    <input required type="tel" class="md-input label-fixed md-input-custom" placeholder="Phone Number" name="phone_no">
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Features <strong class="uk-text-danger">*</strong></label>
+                    <div class="selectize_custom">
+                        <select name="feature" data-md-selectize data-md-selectize-bottom data-placeholder="Features..." multiple>
+                            {% for c in feature %}
+                            <option value="{{c.id}}">{{c.name}}</option>
+                            {%endfor%}
+                            <!--<option>Feature 1</option>-->
+                            <!--<option>Feature 2</option>-->
+                            <!--<option>Feature 3</option>-->
+                        </select>
+                    </div>
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Vendor Id <strong class="uk-text-danger">*</strong></label>
+                    <input type="text" class="md-input label-fixed md-input-custom" placeholder="Vendor Id" name="ven_id">
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Categories <strong class="uk-text-danger">*</strong></label>
+                    <div class="selectize_custom">
+                        <select name="category" data-md-selectize data-md-selectize-bottom data-placeholder="Categories..." multiple>
+                           {% for c in cat %}
+                            <option value="{{c.id}}">{{c.name}}</option>
+                            {%endfor%}
+                            <!--<option>Category 1</option>-->
+                            <!--<option>Category 2</option>-->
+                            <!--<option>Category 3</option>-->
+                        </select>
+                    </div>
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Country <strong class="uk-text-danger">*</strong></label>
+                    <div class="selectize_custom">
+                        <select  name="country" data-md-selectize data-md-selectize-bottom data-placeholder="Country...">
+                             {% for c in country %}
+                            <option value="{{c.id}}">{{c.name}}</option>
+                            {%endfor%}
+                            <!--<option>Country 1</option>-->
+                            <!--<option>Country 2</option>-->
+                            <!--<option>Country 3</option>-->
+                        </select>
+                    </div>
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Latitude <strong class="uk-text-danger">*</strong></label>
+                    <input required type="text" class="md-input label-fixed md-input-custom" placeholder="Latitude" name="lat">
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Longitude <strong class="uk-text-danger">*</strong></label>
+                    <input required type="text" class="md-input label-fixed md-input-custom" placeholder="Longitude" name="long">
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Address <strong class="uk-text-danger">*</strong></label>
+                    <input required type="text" class="md-input label-fixed md-input-custom" placeholder="Address" name="address">
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Individual Commission</label>
+                    <input  type="text" class="md-input label-fixed md-input-custom" placeholder="Individual Commission" name="indiv_com">
+                </div>
+                <div class="uk-width-2-3 uk-margin-medium-bottom">
+                    <label>Youtube Video</label>
+                    <input type="text" class="md-input label-fixed md-input-custom" placeholder='Enter only youtube video id Like-"X4aKpjO2Nk4"' name="you_video">
+                </div>
+                <div class="uk-width-3-3 uk-margin-medium-bottom">
+                    <label>About Gym <strong class="uk-text-danger">*</strong></label>
+                    <textarea required class="md-input label-fixed md-input-custom" placeholder="About Gym" name="about" rows="5"></textarea>
+                </div>
+            </div>
+
+            <div class="uk-margin-large-bottom">
+                <div class="uk-width-1-1 uk-bg-dark uk-padding-1 uk-margin-bottom">
+                    <h2 class="uk-text-white uk-margin-remove"><i class="material-icons uk-text-white uk-padding-half icon-bold-clock"></i> Gym Timings</h2>
+                </div>
+                <div class="uk-grid">
+                    <div class="uk-width-1-3">
+                        <h4>Days</h4>
+                        <div class="uk-flex uk-flex-between uk-bg-white uk-padding-half uk-border-dark uk-radius-5 uk-align-center">
+                            <div>Monday</div>
+                            <div>
+                                <input type="checkbox" class="monday" data-switchery required name="day">
+                            </div>
+                        </div>
+                        <div class="uk-flex uk-flex-between uk-bg-white uk-padding-half uk-border-dark uk-radius-5 uk-align-center">
+                            <div>Tuesday</div>
+                            <div>
+                                <input type="checkbox" class="tuesday" data-switchery name="day">
+                            </div>
+                        </div>
+                        <div class="uk-flex uk-flex-between uk-bg-white uk-padding-half uk-border-dark uk-radius-5 uk-align-center">
+                            <div>Wednesday</div>
+                            <div>
+                                <input type="checkbox" class="wednesday" data-switchery name="day">
+                            </div>
+                        </div>
+                        <div class="uk-flex uk-flex-between uk-bg-white uk-padding-half uk-border-dark uk-radius-5 uk-align-center">
+                            <div>Thursday</div>
+                            <div>
+                                <input type="checkbox" class="thursday" data-switchery name="day">
+                            </div>
+                        </div>
+                        <div class="uk-flex uk-flex-between uk-bg-white uk-padding-half uk-border-dark uk-radius-5 uk-align-center">
+                            <div>Friday</div>
+                            <div>
+                                <input type="checkbox" class="friday" data-switchery name="day">
+                            </div>
+                        </div>
+                        <div class="uk-flex uk-flex-between uk-bg-white uk-padding-half uk-border-dark uk-radius-5 uk-align-center">
+                            <div>Saturday</div>
+                            <div>
+                                <input type="checkbox" class="saturday" data-switchery name="day">
+                            </div>
+                        </div>
+                        <div class="uk-flex uk-flex-between uk-bg-white uk-padding-half uk-border-dark uk-radius-5 uk-align-center">
+                            <div>Sunday</div>
+                            <div>
+                                <input type="checkbox" class="sunday" data-switchery name="day">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-3">
+                        <h4>Opening Time</h4>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="monday_start md-input md-input-custom" data-uk-timepicker value="00:00" name="mon_t" disabled>
+                        </div>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="tuesday_start md-input md-input-custom" data-uk-timepicker value="00:00" name="tues_t" disabled>
+                        </div>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="wednesday_start md-input md-input-custom" data-uk-timepicker value="00:00" name="wed_t" disabled>
+                        </div>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="thursday_start md-input md-input-custom" data-uk-timepicker value="00:00" name="thur_t" disabled>
+                        </div>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="friday_start md-input md-input-custom" data-uk-timepicker value="00:00" name="fri_t" disabled>
+                        </div>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="saturday_start md-input md-input-custom" data-uk-timepicker value="00:00" name="sat_t" disabled>
+                        </div>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="sunday_start md-input md-input-custom" data-uk-timepicker value="00:00" name="sun_t" disabled>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-3">
+                        <h4>Closing Time</h4>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="monday_end md-input md-input-custom" data-uk-timepicker value="00:00" name="mon_ct" disabled>
+                        </div>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="tuesday_end md-input md-input-custom" data-uk-timepicker value="00:00" name="tues_ct" disabled>
+                        </div>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="wednesday_end md-input md-input-custom" data-uk-timepicker value="00:00" name="wed_ct" disabled>
+                        </div>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="thursday_end md-input md-input-custom" data-uk-timepicker value="00:00" name="thur_ct" disabled>
+                        </div>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="friday_end md-input md-input-custom" data-uk-timepicker value="00:00" name="fri_ct" disabled>
+                        </div>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="saturday_end md-input md-input-custom" data-uk-timepicker value="00:00" name="sat_ct" disabled>
+                        </div>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="sunday_end md-input md-input-custom" data-uk-timepicker value="00:00" name="sun_ct" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-bg-dark uk-padding-1 uk-margin-bottom">
+                <h2 class="uk-text-white"><i class="material-icons uk-text-white uk-padding-half">account_balance</i> Bank Details</h2>
+                <div class="uk-grid">
+                    <div class="uk-width-1-2 uk-margin-medium-bottom">
+                        <label class="uk-text-white">Bank Name <strong class="uk-text-danger">*</strong></label>
+                        <input required type="text" class="md-input label-fixed md-input-custom" placeholder="Bank Name" name="bank_nam">
+                    </div>
+                    <div class="uk-width-1-2 uk-margin-medium-bottom">
+                        <label class="uk-text-white">Bank Account Number <strong class="uk-text-danger">*</strong></label>
+                        <input required type="number" class="md-input label-fixed md-input-custom" placeholder="Bank Account Number" name="bank_acc">
+                    </div>
+                    <div class="uk-width-1-2 uk-margin-medium-bottom">
+                        <label class="uk-text-white">Swift Code <strong class="uk-text-danger">*</strong></label>
+                        <input required type="number" class="md-input label-fixed md-input-custom" placeholder="Swift Code" name="swift_cod">
+                    </div>
+                    <div class="uk-width-1-2 uk-margin-medium-bottom">
+                        <label class="uk-text-white">Account Holder Name <strong class="uk-text-danger">*</strong></label>
+                        <input required type="text" class="md-input label-fixed md-input-custom" placeholder="Account Holder Name" name="h_name">
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-float-right">
+                <button type="submit" class="md-btn md-btn-primary">Submit</button>
+                <button type="reset" class="md-btn">Reset</button>
+            </div>
+
+        </div>
+            </form>
+    <!--</div>-->
+{% endblock content %}

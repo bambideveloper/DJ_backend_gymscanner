@@ -1,0 +1,35 @@
+{% extends "main/index.html" %}
+
+{% block content %}
+
+
+  <div id="page_content_inner">
+            
+     <form action="{% if has_data %} {%url 'setting:add_reading_settings' %} {% else %} {%url 'setting:update_reading_settings' data.0.id %} {%endif%}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}  
+                <div class="uk-grid">
+                    <div class="uk-width-1-2 uk-margin-medium-bottom">
+                        <label>Date Time Format <strong class="uk-text-danger">*</strong></label>
+                        <input type="url" class="md-input label-fixed md-input-custom"  value="{{data.0.date_time_format}}" placeholder="d/m/Y h:ia" name="dt_formate">
+                    </div>
+                    <div class="uk-width-1-2 uk-margin-medium-bottom">
+                        <label>Date Format <strong class="uk-text-danger">*</strong></label>
+                        <input type="url" class="md-input label-fixed md-input-custom"  value="{{data.0.date_formate}}" placeholder="d/m/Y h:ia" name="date_form">
+                    </div>
+                    <div class="uk-width-1-2 uk-margin-medium-bottom">
+                        <label>Records Per Page <strong class="uk-text-danger">*</strong></label>
+                        <input type="url" class="md-input label-fixed md-input-custom"  value="{{data.0.records_per_page}}" placeholder="10" name="record_page">
+                    </div>
+                    <div class="uk-width-1-2 uk-margin-medium-bottom">
+                        <label>Records Views <strong class="uk-text-danger">*</strong></label>
+                        <input type="url" class="md-input label-fixed md-input-custom"  value="{{data.0.record_views}}" placeholder="10,25,50,100" name="reco_view">
+                    </div>
+                </div>
+                <div class="md-fab-wrapper md-fab-in-card md-fab-speed-dial-horizontal">
+                    <button type="submit" class="md-btn md-btn-primary">Submit</button>
+                    <button type="reset" class="md-btn">Reset</button>
+                </div>
+            </form>
+
+        </div>
+{% endblock content %}

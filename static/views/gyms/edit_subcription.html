@@ -1,0 +1,52 @@
+{% extends "main/index.html" %}
+
+{% block content %}
+<div id="page_content_inner">
+            <form action="{% url 'gym:edit_subscription_plans' plan.id%}" method="POST" enctype="multipart/form-data">
+         {% csrf_token %}
+                <div class="uk-grid">
+                    <div class="uk-width-1-1 uk-text-center uk-margin-medium-bottom">
+                        <img src="assets/img/subscription.png" width="250px">
+                    </div>
+                    <div class="uk-width-1-3 uk-margin-medium-bottom">
+                        <label>Plan Type <strong class="uk-text-danger">*</strong></label>
+                                <input type="text" value="{{plan.plantype}}" class="md-input label-fixed md-input-custom" placeholder="Plan Name" name="plan_type">
+                        <!--<div class="selectize_custom">-->
+                            <!--&lt;!&ndash;<select data-md-selectize data-md-selectize-bottom data-placeholder="Select Plan Type...">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option>Plan 1</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option>Plan 2</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option>Plan 3</option>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</select>&ndash;&gt;-->
+                        <!--</div>-->
+                    </div>
+                    <div class="uk-width-1-3 uk-margin-medium-bottom">
+                        <label>Plan Name <strong class="uk-text-danger">*</strong></label>
+                        <input type="text" value="{{plan.planname}}" class="md-input label-fixed md-input-custom" placeholder="Plan Name" name="plan_name">
+                    </div>
+                    <div class="uk-width-1-3 uk-margin-medium-bottom">
+                        <label>Plan Validity in Months <strong class="uk-text-danger">*</strong></label>
+                        <input type="text" value="{{plan.planvalidity}}" class="md-input label-fixed md-input-custom" placeholder="Plan Validity in Months" name="plan_validity">
+                    </div>
+                    <div class="uk-width-1-3 uk-margin-medium-bottom">
+                        <label>Plan Price <strong class="uk-text-danger">*</strong></label>
+                        <input type="number" value="{{plan.planprice}}" class="md-input label-fixed md-input-custom" placeholder="Plan Price" name="plan_price">
+                    </div>
+                    {%for i in desc%}
+                    <div class="uk-width-1-3 uk-margin-medium-bottom">
+                        <label>Description 1 <strong class="uk-text-danger">*</strong></label>
+                        <input type="text" value="{{i.description}}" class="md-input label-fixed md-input-custom" placeholder="Description {{ forloop.counter }}" name="desc1">
+                    </div>
+                    {%endfor%}
+                    <div class="uk-width-1-3 uk-margin-medium-bottom">
+                        <label>More Description <strong class="uk-text-danger">*</strong></label>
+                        <button type="button" class="md-btn md-btn-primary md-btn-block add_description">Add</button>
+                    </div>
+                </div>
+
+                <div class="md-fab-wrapper md-fab-in-card md-fab-speed-dial-horizontal">
+                    <button type="submit" class="md-btn md-btn-primary">Submit</button>
+                    <button type="reset" class="md-btn">Reset</button>
+                </div>
+            </form>
+        </div>
+{% endblock content %}

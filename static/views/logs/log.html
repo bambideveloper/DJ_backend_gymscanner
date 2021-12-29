@@ -1,0 +1,101 @@
+{% extends "main/index.html" %}
+
+{% block content %}
+ <div id="page_content_inner">
+
+            <div class="uk-grid uk-margin-bottom table-filter">
+                <div class="uk-width-medium-1-6">
+                    <input type="checkbox" data-md-icheck class="check_all" name="countery">
+                    <a href="#"><i class="material-icons md-icon icon-delete uk-margin-left"></i></a>
+                </div>
+                <div class="uk-width-medium-1-6">
+                    <select data-md-selectize data-md-selectize-bottom data-placeholder="Filter by Country">
+                        <option>Afghanistan</option>
+                        <option>Albania</option>
+                    </select>
+                </div>
+                <div class="uk-width-medium-1-6">
+                    <input type="text" class="md-input md-input-custom" placeholder="Filter by User" name="filter_name">
+                </div>
+                <div class="uk-width-medium-1-6">
+                    <input type="email" class="md-input md-input-custom" placeholder="Filter by Email" name="filter_email">
+                </div>
+                <div class="uk-width-medium-2-6">
+                    <button type="submit" class="md-btn md-btn-primary uk-margin-small-top uk-float-right">Submit</button>
+                </div>
+            </div>
+            
+            <div class="uk-margin-medium-bottom">
+                <div class="md-card-content uk-padding-remove">
+                    <table class="uk-table uk-table-nowrap logs_table">
+                        <tbody>
+
+                            <tr>
+                                <td>
+                                    <input type="checkbox" data-md-icheck class="check_all">
+                                </td>
+                                <td>
+                                    <div class="uk-flex">
+                                        <img src="assets/img/avatars/avatar_01.png" class="md-user-image" style="height: 34px; margin-right: 10px;">
+                                        <div>
+                                            <strong>Pinnu Developer</strong><br>
+                                            <span>Trainer</span>
+                                        </div>
+                                    </div>
+                                    <p>Made a change to his name " Pinnu " to "Pinnu Developer"</p>
+                                </td>
+                                <td>
+                                    <div class="uk-float-right">
+                                        <p>06/01/2020 06:12am</p>
+                                        <button type="button" data-uk-modal="{target:'#viewModal'}" class="md-btn md-btn-primary md-btn-small uk-float-right">View</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <input type="checkbox" data-md-icheck class="check_all">
+                                </td>
+                                <td>
+                                    <div class="uk-flex">
+                                        <img src="assets/img/avatars/avatar_01.png" class="md-user-image" style="height: 34px; margin-right: 10px;">
+                                        <div>
+                                            <strong>Pinnu Developer</strong><br>
+                                            <span>Trainer</span>
+                                        </div>
+                                    </div>
+                                    <p>Made a change to his name " Pinnu " to "Pinnu Developer"</p>
+                                </td>
+                                <td>
+                                    <div class="uk-float-right">
+                                        <p>06/01/2020 06:12am</p>
+                                        <button type="button" data-uk-modal="{target:'#viewModal'}" class="md-btn md-btn-primary md-btn-small uk-float-right">View</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="uk-flex uk-flex-between">
+                <div>
+                    <span>Showing 1 to 10 of 177 entries</span>
+                </div>
+                <div>
+                    <ul class="uk-pagination">
+                        <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
+                        <li class="uk-active"><span>1</span></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><span>&hellip;</span></li>
+                        <li><a href="#">10</a></li>
+                        <li><a href="#"><i class="uk-icon-angle-double-right"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+ {% endblock content %}

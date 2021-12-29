@@ -1,0 +1,139 @@
+{% extends "main/index.html" %}
+
+{% block content %}
+
+ <div id="page_content_inner">
+
+            <div class="uk-grid uk-margin-bottom table-filter">
+                <div class="uk-width-medium-1-6">
+                    <select data-md-selectize data-md-selectize-bottom data-placeholder="Records Per Page">
+                        <option>10</option>
+                        <option>25</option>
+                        <option>50</option>
+                    </select>
+                </div>
+                <div class="uk-width-medium-1-6">
+                    <select data-md-selectize data-md-selectize-bottom data-placeholder="Filter By Status">
+                        <option>Activated</option>
+                        <option>Deactivated</option>
+                    </select>
+                </div>
+                <div class="uk-width-medium-1-6">
+                    <select data-md-selectize data-md-selectize-bottom data-placeholder="Filter by Country">
+                        <option>Romania</option>
+                        <option>Kuwait</option>
+                    </select>
+                </div>
+                <div class="uk-width-medium-1-6">
+                    <input type="text" class="md-input md-input-custom" placeholder="Filter by User" name="filter_nam">
+                </div>
+                <div class="uk-width-medium-1-6">
+                    <input type="email" class="md-input md-input-custom" placeholder="Filter by Email" name="email">
+                </div>
+                <div class="uk-width-medium-1-6">
+                    <button type="submit" class="md-btn md-btn-primary md-btn-block uk-margin-small-top">Submit</button>
+                </div>
+            </div>
+            
+            <div class="md-card uk-margin-medium-bottom">
+                <div class="md-card-content uk-padding-remove uk-overflow-container">
+                    <table class="uk-table uk-table-striped uk-table-nowrap table_check">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Features</th>
+                                <th>Address</th>
+                                <th>Commission</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for score in gym_data %}
+                            <tr>
+                                <td>{{score.gym_name}}</td>
+                                <td>{{score.username}}</td>
+                                <td>{{score.email}}</td>
+                                 <td>{{score.phone}}%</td>
+                                 {% for p in score.features.all %}
+                                <td>{{p.name}}</td>
+                                {%endfor%}
+                                <td>{{score.address}}</td>
+                                <td>{{score.comision}}</td>
+
+                                <td>
+                                    <span class="uk-badge uk-badge-{{ score.status|yesno:'success,danger' }}">{{ score.status|yesno:"Activated,Deactivated" }}</span><br>
+                                    <span class="uk-badge uk-badge-info">Verified</span>
+                                </td>
+                                <td>
+                                    <div class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
+                                        <button class="md-btn md-btn-primary md-btn-small">Action <i class="material-icons">&#xE313;</i></button>
+                                        <div class="uk-dropdown">
+                                            <ul class="uk-nav uk-nav-dropdown">
+                                                <li>
+                                                    <a href="{% url 'gym:gym_view' score.id %}" class="uk-text-success">
+                                                        <i class="material-icons uk-text-success icon-bold-eye"></i>
+                                                        <span>View</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'gym:changestatus' score.id %}" class="uk-text-{{ score.status|yesno:'warning,success' }}">
+                                                        <i class="material-icons uk-text-warning {{ score.status|yesno:'icon-bold-timer-pause,icon-ellipse-green' }}"></i>
+                                                        <span>{{ score.status|yesno:"Deactivate,Activate" }}</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'gym:modify' score.id %}"   class="uk-text-primary">
+                                                        <i class="material-icons uk-text-primary icon-bold-edit"></i>
+                                                        <span>Modify</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'gym:subcription_plans' score.id %}" class="uk-text-success">
+                                                        <i class="material-icons uk-text-success icon-bold-wallet"></i>
+                                                        <span>Subscription Plans</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'gym:delete' score.id %}" class="uk-text-danger">
+                                                        <i class="material-icons uk-text-danger icon-bold-trash"></i>
+                                                        <span>Delete</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                           {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="uk-flex uk-flex-between">
+                <div>
+                    <span>Showing 1 to 10 of 177 entries</span>
+                </div>
+                <div>
+                    <ul class="uk-pagination">
+                        <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
+                        <li class="uk-active"><span>1</span></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><span>&hellip;</span></li>
+                        <li><a href="#">10</a></li>
+                        <li><a href="#"><i class="uk-icon-angle-double-right"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+{% endblock content %}
+

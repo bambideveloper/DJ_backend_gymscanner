@@ -1,0 +1,54 @@
+{% extends "main.html" %}
+
+{% block content %}
+{% load static %}
+<div id="page_content_inner">
+
+            <form action="{%url 'masters:add_country' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="uk-grid">
+                    <div class="uk-width-2-5">
+                        <!--<div class="uk-grid uk-flex-center">-->
+                            <!--<div class="uk-width-1-2">-->
+                                <!--<input type="file" class="dropify" name="file_image">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <div class="uk-margin-medium-top uk-margin-large-bottom">
+                            <label>Country Name <strong class="uk-text-danger">*</strong></label>
+                            <input type="text" class="md-input label-fixed md-input-custom" placeholder="Country Name" name="icon_name" required>
+                        </div>
+                        <div class="uk-margin-medium-top uk-margin-large-bottom">
+                            <label>Phone Code <strong class="uk-text-danger">*</strong></label>
+                            <input type="text" class="md-input label-fixed md-input-custom" placeholder="Phone Code" name="phonecode" required>
+                        </div>
+                        <div class="uk-margin-medium-top uk-margin-large-bottom">
+                            <label>Country Code <strong class="uk-text-danger">*</strong></label>
+                            <input type="text" class="md-input label-fixed md-input-custom" placeholder="Country Code" name="countrycode" required>
+                        </div>
+                        <!--<div class="uk-margin-top uk-margin-large-bottom gym_category_language">-->
+                            <!--<label>Language <strong class="uk-text-danger">*</strong></label>-->
+                            <!--<div class="uk-bg-white uk-border-dark uk-radius-5 uk-padding-half uk-margin-top">-->
+                                <!--<label for="radio_demo_1" class="inline-label">Language 1</label>-->
+                                <!--<input type="radio" id="radio_demo_1" name="radio_demo" class="uk-float-right" data-md-icheck />-->
+                            <!--</div>-->
+                            <!--<div class="uk-bg-white uk-border-dark uk-radius-5 uk-padding-half uk-margin-top">-->
+                                <!--<label for="radio_demo_2" class="inline-label">Language 2</label>-->
+                                <!--<input type="radio" id="radio_demo_2" name="radio_demo" class="uk-float-right" data-md-icheck />-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    </div>
+                    <div class="uk-width-3-5">
+                        <div class="uk-padding-2">
+                            <img src="{% static 'assets/img/gym_category.png' %}" width="500px">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md-fab-wrapper md-fab-in-card md-fab-speed-dial-horizontal">
+                    <button type="submit" class="md-btn md-btn-primary">Submit</button>
+                    <button type="reset" class="md-btn">Reset</button>
+                </div>
+            </form>
+
+        </div>
+{% endblock content %}

@@ -1,0 +1,572 @@
+:root {
+	--custom-primary: #6F64F8;
+	--custom-dark: #0F1642;
+	--custom-white: #fefefe;
+}
+
+body {
+	background-color: #F5F7F9;
+}
+
+/*#header_main .sSwitch {
+	margin: 0 !important;
+	padding: 2px 0 !important;
+}
+
+#header_main .sSwitch:before {
+	display: none;
+}
+
+#header_main .sSwitch i.material-icons {
+	font-size: 3rem;
+}*/
+
+.login_page {
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: right;
+	background-color: #030306;
+	padding: 64px 100px;
+}
+
+.uk-margin-auto {
+	margin: auto;
+}
+
+.uk-padding-half {
+	padding: .5rem;
+}
+
+.uk-padding-half-x {
+	padding: 0 .5rem;
+}
+
+.uk-padding-half-y {
+	padding: .5rem 0;
+}
+
+.uk-padding-half-top {
+	padding-top: .5rem;
+}
+
+.uk-padding-half-bottom {
+	padding-bottom: .5rem;
+}
+
+.uk-padding-half-right {
+	padding-right: .5rem;
+}
+
+.uk-padding-half-left {
+	padding-left: .5rem;
+}
+
+.uk-padding-1 {
+	padding: 1rem;
+}
+
+.uk-padding-1-top {
+	padding-top: 1rem;
+}
+
+.uk-padding-1-bottom {
+	padding-bottom: 1rem;
+}
+
+.uk-padding-2 {
+	padding: 2rem;
+}
+
+.login_page_wrapper {
+	margin: unset;
+	position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.gym_category_language div.iradio_md {
+	float: right;
+}
+
+#login_card {
+	border-radius: 20px;
+}
+
+.md-input {
+	border-width: 1px !important;
+}
+
+.login_form .uk-input-group {
+	border: 1px solid #000;
+	border-radius: 5px;
+}
+
+.login_form .uk-input-group .md-input {
+	border-width: 0 !important;
+}
+
+.md-input-bar {
+	display: none !important;
+}
+
+.md-btn {
+	border-radius: 5px;
+	padding: 5px 16px;
+}
+
+.md-btn-primary {
+	background-color: #6f64f8;
+}
+
+.md-btn-primary:hover {
+	background-color: #6158d1;
+}
+
+.md-btn-dark,
+.md-btn-dark:hover,
+.md-btn-dark:active,
+.md-btn-dark:focus,
+.uk-button-dropdown.uk-open>.md-btn {
+	background-color: var(--custom-dark) !important;
+	color: var(--custom-white);
+}
+
+.uk-text-primary {
+	color: var(--custom-primary) !important;
+}
+
+.uk-text-white,
+.uk-text-white:hover {
+	color: var(--custom-white) !important;
+}
+
+.uk-text-black,
+.uk-text-black:hover {
+	color: #000;
+}
+
+.uk-text-dark {
+	color: var(--custom-dark) !important;
+}
+
+i.uk-text-dark:before {
+	color: var(--custom-dark) !important;	
+}
+
+.uk-table {
+	border: 3px solid #6F64F8;
+}
+
+.uk-table td {
+	vertical-align: middle;
+	padding: 10px;
+}
+
+.uk-table thead {
+	background-color: var(--custom-primary);
+}
+
+.uk-table thead th {
+	padding: 10px;
+	color: var(--custom-white);
+}
+
+.uk-divider-vertical {
+    width: 1px;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+    border-left: 1px solid #e5e5e5;
+}
+
+.uk-flex-between {
+	justify-content: space-between;
+}
+
+.uk-pagination {
+	background: #DEDEDE 0% 0% no-repeat padding-box;
+	border-radius: 23px;
+}
+
+.uk-pagination .uk-active span {
+	border-radius: 20px;
+	background-color: var(--custom-primary) !important;
+}
+
+.uk-pagination>li>a:hover {
+	border-radius: 20px;
+}
+
+.uk-modal-dialog {
+	border-radius: 15px;
+}
+
+.uk-list-divider>:nth-child(n+2) {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #e5e5e5;
+}
+
+.uk-bg-primary {
+	background-color: var(--custom-primary) !important;
+}
+
+.uk-bg-dark {
+	background-color: var(--custom-dark);
+}
+
+.uk-bg-white {
+	background-color: #fff;
+}
+
+.uk-border-dark {
+	border: 1px solid var(--custom-dark);
+}
+
+.uk-radius-5 {
+	border-radius: 5px;
+}
+
+.uk-align-center {
+	align-items: center;
+}
+
+.image_100 {
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
+}
+
+.dropify-wrapper {
+	border: 1px solid #0F1642 !important;
+	border-radius: 4px !important;
+}
+
+.selectize_custom {
+	margin-top: .5rem;
+}
+
+.selectize_custom .selectize-control .selectize-input {
+	border-radius: 5px;
+	border: 1px solid #0F1642 !important;
+}
+
+.table-filter .selectize-control .selectize-input {
+	border-radius: 8px;
+	box-shadow: 0px 2px 8px #00000022;
+}
+
+.table-filter .selectize-control .selectize-input .item {
+	font-size: 12px;
+}
+
+.table-filter .md-input-custom {
+	font-size: 12px !important;
+	border-radius: 8px !important;
+	box-shadow: 0px 2px 8px #00000022 !important;
+	border: none !important;
+	padding: 12px 15px !important;
+}
+
+.uk-table tbody tr td .uk-open>.uk-dropdown {
+	background: #FFFFFF 0% 0% no-repeat padding-box;
+	box-shadow: 0px 0px 40px #000A4B29;
+	border: 2px solid #6F64F8;
+	border-radius: 12px;
+	padding: 0 20px;
+}
+
+.uk-table tbody tr td .uk-open>.uk-dropdown .uk-nav-dropdown li a {
+	padding: 10px;
+	font-weight: bold;
+}
+
+.uk-table tbody tr td .uk-open>.uk-dropdown .uk-nav-dropdown li a i.material-icons {
+	padding: 0 5px;
+	font-size: 18px;
+}
+
+.uk-table tbody tr td .uk-open>.uk-dropdown .uk-nav-dropdown li:not(:last-child) a {
+	border-bottom: 1px solid var(--custom-primary);
+}
+
+.login_form .uk-input-group-addon {
+	padding: 0 8px;
+}
+
+.custom-card {
+	border: 2px solid var(--custom-primary);
+	border-radius: 10px;
+}
+
+.custom-card .custom-card-toolbar {
+	background-color: var(--custom-primary);
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.custom-card .md-card-toolbar-heading-text {
+	color: var(--custom-white);
+}
+
+.custom-card .md-card-dropdown i.material-icons {
+	color: var(--custom-white);
+}
+
+#sidebar_main {
+	background-color: var(--custom-dark);
+}
+
+#sidebar_main .menu_section>ul>li a {
+	color: var(--custom-white);
+}
+
+#sidebar_main .menu_section>ul>li.submenu_trigger>a:before {
+	color: var(--custom-white);
+}
+
+#sidebar_main .menu_section>ul>li ul a {
+	color: var(--custom-white);
+}
+
+#sidebar_main .material-icons {
+	color: var(--custom-white);
+}
+
+#sidebar_main .sidebar_main_header {
+	height: auto;
+	background: var(--custom-dark);
+}
+
+#header_main {
+	background-color: #fff;
+	box-shadow: 0px 4px 6px #0000000F;
+}
+
+#header_main .sSwitch:before {
+	background-color: var(--custom-dark);
+}
+
+#header_main .sSwitch.sSwitch_left .sSwitchIcon:before,
+#header_main .sSwitch.sSwitch_left .sSwitchIcon:after {
+	background-color: var(--custom-dark);
+}
+
+#header_main .sSwitch.sSwitch_left .sSwitchIcon {
+	background-color: var(--custom-dark);
+}
+
+#sidebar_main .menu_section ul>li.current_section>a:first-child {
+	background: transparent linear-gradient(262deg, #9E94FF 0%, #7E72F2 100%) 0% 0% no-repeat padding-box;
+	box-shadow: -1px 1px 8px #7E72F294;
+	border-radius: 4px;
+}
+
+#sidebar_main .menu_section>ul>li.current_section>a .menu_title {
+	color: var(--custom-white);
+}
+
+#sidebar_main .menu_section>ul>li.current_section>a>.menu_icon .material-icons {
+	color: var(--custom-white);
+}
+
+#sidebar_main .menu_section>ul>li ul li.act_item>a {
+	color: var(--custom-white);
+	font-weight: bold;
+}
+
+.menu_active_state {
+	background: var(--custom-primary);
+	border-radius: 50px;
+	font-size: 18px;
+}
+
+.menu_not_active_state {
+	border: 2px solid var(--custom-primary);
+	border-radius: 50px;
+	font-size: 18px;
+}
+
+.menu_section_bottom {
+	padding: 8px 20px;
+	position: absolute;
+	bottom: 0;
+}
+
+.menu_section_bottom span {
+	color: #aeaeae;
+}
+
+.user_heading_avatar .thumbnail {
+	border: 2px solid #0F1642;
+}
+
+.md-input-filled>label {
+	position: relative;
+	font-size: 15px;
+}
+
+.md-input-custom {
+	background: #FFFFFF 0% 0% no-repeat padding-box !important;
+	border: 1px solid #0F1642 !important;
+	border-radius: 4px !important;
+	opacity: 1;
+	padding: 10px 15px !important;
+}
+
+#header_main .user_actions a.user_action_image {
+	line-height: 45px !important;
+	border: 2px solid var(--custom-primary) !important;
+	border-radius: 10px;
+	padding: 0 10px;
+}
+
+#header_main .user_actions a.user_action_image:after {
+	display: none !important;
+}
+
+#header_main .uk-navbar .uk-navbar-nav>li .uk-dropdown {
+	border: 2px solid var(--custom-primary);
+	border-radius: 10px;
+}
+
+#header_main .uk-navbar .uk-navbar-nav>li .uk-dropdown ul li a i.material-icons {
+	font-size: 18px;
+	padding-right: 5px;
+}
+
+#header_main .user_actions a.user_action_image span i.material-icons {
+	font-size: 18px;
+}
+
+.chartist {
+	height: 100px;
+}
+
+.chartist_card {
+	border-radius: 8px;
+}
+
+.chartjs_card {
+	border-radius: 20px;
+	padding: 1rem;
+}
+
+.ct-area {
+	fill-opacity: .5;
+}
+
+.ct-line {
+	stroke-width: .5px;
+}
+
+.chartist_icon, .chartist_icon:hover {
+	font-size: 16px;
+	color: var(--custom-white) !important;
+}
+
+#chartist_total_users .ct-series-a .ct-area {
+    fill: #7E72F2;
+}
+
+#chartist_total_users .ct-series-a .ct-line {
+  stroke: #7E72F2;
+}
+
+.chartist_card_total_users .chartist_icon {
+	background-color: #B7B1F7;
+}
+
+#chartist_total_gyms .ct-series-a .ct-area {
+    fill: #2DCD7A;
+}
+
+#chartist_total_gyms .ct-series-a .ct-line {
+  stroke: #2DCD7A;
+}
+
+.chartist_card_total_gyms .chartist_icon {
+	background-color: #2DCD7A;
+}
+
+#chartist_trainers .ct-series-a .ct-area {
+    fill: #EA5455;
+}
+
+#chartist_trainers .ct-series-a .ct-line {
+  stroke: #EA5455;
+}
+
+.chartist_card_trainers .chartist_icon {
+	background-color: #EA5455;
+}
+
+#chartist_orders .ct-series-a .ct-area {
+    fill: #FF9F43;
+}
+
+#chartist_orders .ct-series-a .ct-line {
+  stroke: #FF9F43;
+}
+
+.chartist_card_orders .chartist_icon {
+	background-color: #FF9F43;
+}
+
+.logs_table {
+	border: none;
+	background-color: #fff;
+	border-radius: 8px;
+	box-shadow: 0px 2px 20px #00000014;
+}
+
+.logs_table tbody tr td {
+	padding-top: 20px;
+}
+
+.logs_table tbody tr td:first-child {
+	text-align: center;
+}
+
+#gym_view_page .gym_view_header {
+	position: relative;
+}
+
+#gym_view_page .gym_view_header .gym_view_profile_photo {
+	position: absolute;
+	left: 5%;
+	bottom: -15%;
+}
+
+#gym_view_page .gym_view_header .gym_view_profile_photo img {
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
+	border-radius: 10px;
+}
+
+#gym_view_page .gym_details {
+	margin-top: 5rem !important;
+}
+
+#gym_view_page .gym_details div.uk-width-1-2 {
+	padding: 0 35px;
+}
+
+#gym_view_page .gym_details div.uk-width-1-2:first-child {
+	border-right: 2px solid var(--custom-dark);
+}
+
+#gym_view_page .gym_timings_table {
+	border: none;
+}
+
+#gym_view_page .gym_timings_table thead {
+	background-color: transparent;
+}
+
+#gym_view_page .gym_timings_table thead tr {
+	font-weight: bold;
+}

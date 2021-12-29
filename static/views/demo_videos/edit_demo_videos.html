@@ -1,0 +1,37 @@
+
+{% extends "main.html" %}
+
+{% block content %}
+ <div id="page_content_inner">
+ <form action=" {%url 'demo_videos:editdemovideos' demo.id%}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+           
+                <div class="uk-grid">
+                    <div class="uk-width-2-5">
+                        <div class="uk-grid uk-flex-center">
+                            <div class="uk-width-1-2">
+                                <input type="file" class="dropify"  name="video" accept="video/*" data-default-file="{{demo.video.url}}">
+                            </div>
+                        </div>
+                        <div class="uk-margin-medium-top uk-margin-large-bottom">
+                            <label>Video Title <strong class="uk-text-danger">*</strong></label>
+                            <input type="text" class="md-input label-fixed md-input-custom"  placeholder="Video Title" value="{{demo.title}}" name="tittle" required>
+                        </div>
+                    </div>
+                    <div class="uk-width-3-5">
+                        <div class="uk-padding-2 uk-text-center">
+                             <input type="text" class="md-input label-fixed md-input-custom"  placeholder="Video url" name="url" value="{{demo.video_url}}" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md-fab-wrapper md-fab-in-card md-fab-speed-dial-horizontal">
+                    <button type="submit" class="md-btn md-btn-primary">Submit</button>
+                    <button type="reset" class="md-btn">Reset</button>
+                </div>
+            </form>
+
+        </div>
+
+
+{% endblock content %}
