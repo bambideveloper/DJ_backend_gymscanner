@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
-from django.db.models.base import Model
 from django.utils import timezone
 from language.models import Language
 # Create your models here.

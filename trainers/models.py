@@ -26,3 +26,13 @@ class Trainers(models.Model):
     
     class Meta:
         db_table = 'trainers'
+
+class Trainers_Bank(models.Model):
+    trainer = models.ForeignKey(Trainers, on_delete = models.CASCADE)
+    name = models.CharField('Bank Name', max_length = 250)
+    account_number = models.CharField('Bank Account Number', max_length = 250)
+    swift_code = models.CharField('Swift Code', max_length = 250)
+    account_holder_name = models.CharField('Account Holder Name', max_length = 250)
+
+    class Meta:
+        db_table = 'trainer_bank'
