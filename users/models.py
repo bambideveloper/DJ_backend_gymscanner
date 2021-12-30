@@ -35,3 +35,14 @@ class Users(AbstractBaseUser):
 
     class Meta:
         db_table = 'users'
+
+class Business(models.Model):
+    user = models.ForeignKey(Users, on_delete = models.CASCADE)
+    business_type = models.BooleanField('Bussiness Type', default = False)
+    vendor = models.CharField('Vendor ID', max_length = 250, null = True)
+    website = models.CharField("Website", max_length = 250, null = True)
+    youtube = models.CharField('Youtube', max_length = 250, null = True)
+    commission = models.CharField('Individual Commission', max_length = 250, null = True)
+    
+    class Meta:
+        db_table = 'business'

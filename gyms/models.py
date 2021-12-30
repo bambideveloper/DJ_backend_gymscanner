@@ -1,7 +1,8 @@
 from django.db import models
 from language.models import Language
 from masters.models import Feature
-from users.models import Users
+from users.models import Business
+from masters.models import Banner
 
 # Create your models here.
 DAY_CHOICES = (
@@ -22,12 +23,40 @@ class Gym_Category(models.Model):
     class Meta:
         db_table = 'gym_category'
 
+class Gym_Review(models.Model):
+    user = models.ForeignKey(Business, on_delete = models.CASCADE, null = True, blank = True)
+    title = models.CharField("Title", max_length = 250)
+    description = models.TextField("Description")
+    price = models.FloatField("Price")
+    location = models.FloatField("Location")
+    staff = models.FloatField("Staff")
+    facility = models.FloatField("Facility")
+    
+    date = models.DateTimeField("Date", auto_now_add = True)
+    is_active = models.BooleanField("Status", default = True)
+
+    class Meta:
+        db_table = 'gym_review'
+
+class Gym_Description(models.Model):
+    content = models.CharField('Content', max_length = 250)
+    class Meta:
+        db_table = 'gym_description'
+
+class Gym_Subscription(models.Model):
+    plan_type = models.CharField('Plan Type', max_length = 250)
+    plan_name = models.CharField('Plan Name', max_length = 250)
+    plan_validity = models.IntegerField('Plan Validity in Months')
+    plan_price = models.FloatField('Plan Price')
+    created_at = models.DateTimeField('Created_At', auto_now_add = True)
+    status = models.BooleanField('Activation', default = True)
+    description = models.ManyToManyField(Gym_Description, null = True, db_table = 'related_subscription_description')
+    class Meta:
+        db_table = 'gym_subscription'
+
 class Gyms(models.Model):
-    user = models.ForeignKey(Users, on_delete = models.CASCADE)
-    vendor = models.CharField('Vendor ID', max_length = 250, null = True)
-    website = models.CharField("Website", max_length = 250, null = True)
-    youtube = models.CharField('Youtube', max_length = 250, null = True)
-    commission = models.CharField('Individual Commission', max_length = 250, null = True)
+    business = models.ForeignKey(Business, on_delete = models.CASCADE)
+    
     latitude = models.CharField("Latitude", max_length = 250, null = True)
     longitude = models.CharField("Longitude", max_length = 250, null = True)
 
@@ -36,18 +65,16 @@ class Gyms(models.Model):
         default = 'default/gym_logo.jpg',
     )
 
-    banner = models.ImageField(
-        upload_to = 'gyms/banner',
-        default = 'default/gym_banner.jpg'
-    )
-
     video = models.FileField(
         upload_to = 'gyms/video',
         default = 'default/gym_video.jpg'
     )
 
+    banner = models.ManyToManyField(Banner, null = True, db_table = 'related_gyms_banner')
     feature = models.ManyToManyField(Feature, null = True, db_table = 'related_gyms_feature')
     category = models.ManyToManyField(Gym_Category, null = True, db_table = 'related_gyms_category')
+    subscription = models.ManyToManyField(Gym_Subscription, null = True, db_table = 'related_gyms_subscription')
+    review = models.ManyToManyField(Gym_Review, null = True, db_table = 'related_gyms_review')
 
     class Meta:
         db_table = 'gyms'
@@ -71,18 +98,3 @@ class Gym_Bank(models.Model):
     class Meta:
         db_table = 'gym_bank'
 
-class Gym_Review(models.Model):
-    gym = models.ForeignKey(Gyms, on_delete = models.CASCADE)
-    user = models.ForeignKey(Users, on_delete = models.CASCADE, null = True, blank = True)
-    title = models.CharField("Title", max_length = 250)
-    description = models.TextField("Description")
-    price = models.FloatField("Price")
-    location = models.FloatField("Location")
-    staff = models.FloatField("Staff")
-    facility = models.FloatField("Facility")
-    
-    date = models.DateTimeField("Date", auto_now_add = True)
-    is_active = models.BooleanField("Status", default = True)
-
-    class Meta:
-        db_table = 'gym_review'

@@ -3,11 +3,12 @@ from django.db import models
 # Create your models here.
 
 class Logs(models.Model):
-    images=models.ImageField(upload_to = 'logs/images' )
-    name = models.CharField(max_length = 250)
-    post = models.CharField(max_length = 250)
-    text=  models.CharField(max_length = 250)
-    created_on= models.DateTimeField(auto_now_add = True)
-    
+    user = models.ForeignKey('Who', on_delete = models.CASCADE, max_length = 250)
+    created_at = models.DateTimeField('When', auto_now_add = True)
+    where = models.CharField('Where', max_length = 250)
+    field = models.CharField('What', max_length = 250)
+    origin = models.CharField('From', max_length = 250)
+    update = models.CharField('To', max_length = 250)
+
     class Meta:
         db_table = 'logs'
