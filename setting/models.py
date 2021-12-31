@@ -18,7 +18,7 @@ class Site(models.Model):
 
 class Contact(models.Model):
     email = models.CharField(max_length = 250)
-    phone_number = models.IntegerField(max_length = 250)
+    phone_number = models.IntegerField()
     contact_map = models.CharField(max_length = 250)
     contact_address = models.CharField(max_length = 250)
 
