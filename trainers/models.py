@@ -1,6 +1,7 @@
 from django.db import models
 from language.models import Language
 from users.models import Business
+from masters.models import Banner
 
 # Create your models here.
 class Trainer_Category(models.Model):
@@ -12,16 +13,13 @@ class Trainer_Category(models.Model):
         db_table = 'trainer_category'
 
 class Trainers(models.Model):
-    user = models.ForeignKey(Business, on_delete = models.CASCADE)
+    business = models.ForeignKey(Business, on_delete = models.CASCADE)
     certification = models.CharField("Certification Year", max_length = 250,null = True)
     logo = models.ImageField(
         upload_to = 'trainers/logo',
         default = 'default/trainer_logo.jpg',
     )
-    banner = models.ImageField(
-        upload_to = 'trainers/banner',
-        default = 'default/trainer_banner.jpg'
-    )
+    banner = models.ManyToManyField(Banner, null = True, db_table = 'related_trainers_banner')
     category = models.ManyToManyField(Trainer_Category, null = True, db_table = 'related_trainers_category')
     
     class Meta:
