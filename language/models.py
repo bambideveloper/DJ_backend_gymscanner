@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 class Language(models.Model):
     langauge = models.CharField('Language', max_length = 250, unique = True)
+    title = models.CharField('Title', max_length = 250)
     code = models.CharField('Code', max_length = 10, unique = True)
     flag = models.ImageField('Flag', upload_to = 'language/flags/', default = "default/flag.jpg")
     is_active = models.BooleanField('Activate', default = True)
