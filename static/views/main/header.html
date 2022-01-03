@@ -20,6 +20,8 @@
                             <a href="#" class="user_action_image">
                                 {% if user.employee.photo %}
                                 <img class="md-user-image" src="{{ user.employee.photo.url }}" alt="Profile Picture"/>
+                                {% else %}
+                                <img class="md-user-image" src="{{ 'media/default/admin.jpg' }}" alt="Profile Picture"/>
                                 {% endif %}
                                 <span class="uk-text-dark uk-padding-half">{{user.username}} <i class="material-icons">&#xE313;</i></span>
                             </a>

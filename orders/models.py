@@ -12,7 +12,7 @@ STATUS_CHOICE = [
     ('p', 'Not confirmed'), 
 ]
 
-class Order(models.Model):
+class Orders(models.Model):
     gym_name = models.CharField('Gym User Name', max_length = 250)
     order_id = models.CharField('Order ID', max_length = 250)
     customer_name = models.CharField('Name', max_length = 250)

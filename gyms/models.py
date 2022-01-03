@@ -1,7 +1,7 @@
 from django.db import models
 from language.models import Language
 from masters.models import Feature
-from users.models import Business
+from users.models import Businesses
 from masters.models import Banner
 
 # Create your models here.
@@ -24,7 +24,7 @@ class Gym_Category(models.Model):
         db_table = 'gym_category'
 
 class Gym_Review(models.Model):
-    user = models.ForeignKey(Business, on_delete = models.CASCADE, null = True, blank = True)
+    user = models.ForeignKey(Businesses, on_delete = models.CASCADE, null = True, blank = True)
     title = models.CharField("Title", max_length = 250)
     description = models.TextField("Description")
     price = models.FloatField("Price")
@@ -55,7 +55,7 @@ class Gym_Subscription(models.Model):
         db_table = 'gym_subscription'
 
 class Gyms(models.Model):
-    business = models.ForeignKey(Business, on_delete = models.CASCADE)
+    business = models.ForeignKey(Businesses, on_delete = models.CASCADE)
     
     latitude = models.CharField("Latitude", max_length = 250, null = True)
     longitude = models.CharField("Longitude", max_length = 250, null = True)

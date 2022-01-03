@@ -1,6 +1,6 @@
 from django.db import models
 from language.models import Language
-from users.models import Business
+from users.models import Businesses
 from masters.models import Banner
 
 # Create your models here.
@@ -13,7 +13,7 @@ class Trainer_Category(models.Model):
         db_table = 'trainer_category'
 
 class Trainers(models.Model):
-    business = models.ForeignKey(Business, on_delete = models.CASCADE)
+    business = models.ForeignKey(Businesses, on_delete = models.CASCADE)
     certification = models.CharField("Certification Year", max_length = 250,null = True)
     logo = models.ImageField(
         upload_to = 'trainers/logo',

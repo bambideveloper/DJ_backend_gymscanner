@@ -41,6 +41,7 @@ def event_insert(request):
             user.save()
         else:
             message = 'Password do not match'
+            
         context = {}
         context["title"] = "Add Users"
         context["country_list"] = Country.objects.all()
