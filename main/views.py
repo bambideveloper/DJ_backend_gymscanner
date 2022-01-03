@@ -5,14 +5,19 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
 
+from users.models import *
+from trainers.models import *
+from gyms.models import *
+from orders.models import *
+
 # Create your views here.
 @login_required
 def index(request):
     context={}
-    context["gym_count"] = 0
-    context['user_count'] = 0
-    context['trainer_count'] = 0
-    context['order_count'] = 0
+    context["gym_count"] = Gyms.objects.all().count()
+    context['user_count'] = Users.objects.all().count()
+    context['trainer_count'] = Trainers.objects.all().count()
+    context['order_count'] = Orders.objects.all().count()
     context["title"] = "Dashboard"
     context["dashboard_section"] = "current_section"
     context["user"] = request.user
@@ -31,7 +36,7 @@ def admin_profile(request):
             request.user.email = request.POST.get("email")
         if request.FILES.get("auth_profile_photo"):
             request.user.employee.photo = request.FILES.get("auth_profile_photo")
-        
+            
         request.user.save()
         request.user.employee.save()
 

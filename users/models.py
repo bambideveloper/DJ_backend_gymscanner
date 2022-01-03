@@ -27,6 +27,7 @@ class Users(AbstractBaseUser):
     gender = models.CharField('Gendor', choices=GENDER_CHOICES, max_length = 250, null = True)
 
     language = models.ManyToManyField(Language, null = True, db_table = 'related_users_language')
+
     profile = models.ImageField(
         upload_to = 'users',
         default = 'default/user.jpg'
@@ -35,7 +36,7 @@ class Users(AbstractBaseUser):
     class Meta:
         db_table = 'users'
 
-class Business(models.Model):
+class Businesses(models.Model):
     user = models.ForeignKey(Users, on_delete = models.CASCADE)
     business_type = models.BooleanField('Bussiness Type', default = False)
     vendor = models.CharField('Vendor ID', max_length = 250, null = True)
@@ -44,4 +45,4 @@ class Business(models.Model):
     commission = models.CharField('Individual Commission', max_length = 250, null = True)
     
     class Meta:
-        db_table = 'business'
+        db_table = 'businesses'
