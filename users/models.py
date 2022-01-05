@@ -2,14 +2,28 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.utils import timezone
 from language.models import Language
+from uuid import uuid4
+import os
 # Create your models here.
 
 GENDER_CHOICES = (
-    ('1', 'Male'),
-    ('2', 'Female'),
-    ('3', 'Other'),
-    ('4', 'Prefer Not To Say'),
+    ('Male', 'Male'),
+    ('Female', 'Female'),
+    ('Other', 'Other'),
+    ('Prefer Not To Say', 'Prefer Not To Say'),
 )
+
+def path_and_rename(instance, filename):
+    upload_to = 'users'
+    ext = filename.split('.')[-1]
+    # get filename
+    if instance.pk:
+        filename = '{}.{}'.format(instance.username, ext)
+    else:
+        # set filename as random string
+        filename = '{}.{}'.format(uuid4().hex, ext)
+    # return the whole path to the file
+    return os.path.join(upload_to, filename)
 
 class Users(AbstractBaseUser):
     email = models.EmailField('Email Address', unique = True)
@@ -23,18 +37,24 @@ class Users(AbstractBaseUser):
     address = models.CharField('Address', max_length = 250, null = True)
     country = models.CharField('Country', max_length = 250, null = True)
     about = models.TextField('About User', null = True)
+    status = models.BooleanField('Activate', default = True)
     is_verified = models.BooleanField('Verification', default = False)
-    gender = models.CharField('Gendor', choices=GENDER_CHOICES, max_length = 250, null = True)
+    gender = models.CharField('Gendor', choices = GENDER_CHOICES, max_length = 250, null = True)
+    created_at = models.DateTimeField('Created At', default = timezone.now)
 
     language = models.ManyToManyField(Language, null = True, db_table = 'related_users_language')
 
     profile = models.ImageField(
-        upload_to = 'users',
+        upload_to = path_and_rename,
         default = 'default/user.jpg'
     )
 
+    USERNAME_FIELD = 'username'
+    def get_fullname(self):
+        return self.first_name + " " + self.last_name
     class Meta:
         db_table = 'users'
+        ordering = ['-created_at']
 
 class Businesses(models.Model):
     user = models.ForeignKey(Users, on_delete = models.CASCADE)

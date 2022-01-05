@@ -17,7 +17,10 @@ def path_and_rename(instance, filename):
 
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
-    photo = models.ImageField('Profile Photo', upload_to = path_and_rename, default = 'default/admin.jpg')
+    photo = models.ImageField('Profile Photo', 
+        upload_to = path_and_rename, 
+        default = 'default/admin.jpg'
+    )
 
     class Meta:
         db_table = 'auth_user_photo'
