@@ -49,13 +49,28 @@
                     </thead>
                     <tbody>
                         {% for user in users %}
-                        <tr id="row{{user.id}}">
-                            <td id="tr1_{{user.id}}">{{user.full_name}}</td>
-                            <td id="tr2_{{user.id}}">{{user.username}}</td>
-                            <td id="tr3_{{user.id}}">{{user.gender}}</td>
-                            <td id="tr4_{{user.id}}">{{user.email}}</td>
-                            <td id="tr5_{{user.id}}">{{user.phone}}</td>
-                            <td id="tr6_{{user.id}}">{{user.country}}</td>
+                        <tr id="row_{{user.id}}">
+                            <td id="td1_{{user.id}}">
+                                {% if user.fullname %}
+                                    {{ user.fullname }}
+                                {% else %}
+                                    {{ user.get_fullname }}
+                                {% endif %}
+                            </td>
+                            <td id="td2_{{user.id}}">{{user.username}}</td>
+                            <td id="td3_{{user.id}}">{{user.gender}}</td>
+                            <td id="td4_{{user.id}}">{{user.email}}</td>
+                            <td id="td5_{{user.id}}">{{user.phone}}</td>
+                            <td id="td6_{{user.id}}">{{user.country}}</td>
+                            <td id="td7_{{user.id}}" style="display: none;">
+                                {% if user.profile %}
+                                    {{user.profile.url}}
+                                {% else %}
+                                    {{'/media/default/user.jpg'}}
+                                {% endif %}
+                            </td>
+                            <td id="td8_{{user.id}}" style="display: none;">{{user.address}}</td>
+                            <td id="td9_{{user.id}}" style="display: none;">{{user.birthday}}</td>
                             <td>
                                 <span class="uk-badge uk-badge-{{ user.status|yesno:'success,danger' }}">{{ user.status|yesno:"Activated,Deactivated" }}</span><br>
                                 <span class="uk-badge uk-badge-{{ user.is_verified|yesno:'success,danger' }}">{{ user.is_verified|yesno:"Verified,Not Verified" }}</span>
@@ -66,25 +81,25 @@
                                     <div class="uk-dropdown">
                                         <ul class="uk-nav uk-nav-dropdown">
                                             <li>
-                                                <a onclick="change_model(this)" data-index="{{user.id}}" href="#" class="uk-text-success" data-uk-modal="{target:'#userViewModal'}">
+                                                <a onclick="view_modal(this)" data-index="{{ user.id }}" href="#" class="uk-text-success" data-uk-modal="{target:'#userViewModal'}">
                                                     <i class="material-icons uk-text-success icon-bold-eye"></i>
                                                     <span>View</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="{% url 'users:updatestatus' user.id %}" class="uk-text-{{ user.status|yesno:'warning,success' }}">
+                                                <a href="{% url 'user:event_update_status' user.id %}" class="uk-text-{{ user.status|yesno:'warning,success' }}">
                                                     <i class="material-icons uk-text-warning {{ user.status|yesno:'icon-bold-timer-pause,icon-ellipse-green' }}"></i>
-                                                    <span>{{ score.status|yesno:"Deactivate,Activate" }}</span>
+                                                    <span>{{ user.status|yesno:"Deactivate,Activate" }}</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a  href="{% url 'users:edituser' user.id %}" class="uk-text-primary">
+                                                <a  href="{% url 'user:event_update_info' user.id %}" class="uk-text-primary">
                                                     <i class="material-icons uk-text-primary icon-bold-edit"></i>
                                                     <span>Modify</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="{% url 'users:deleteuser' user.id %}" class="uk-text-danger">
+                                                <a href="{% url 'user:event_delete' user.id %}" class="uk-text-danger">
                                                     <i class="material-icons uk-text-danger icon-bold-trash"></i>
                                                     <span>Delete</span>
                                                 </a>
@@ -95,7 +110,6 @@
                             </td>
                         </tr>
                         {% endfor %}
-
                     </tbody>
                 </table>
             </div>
@@ -122,56 +136,56 @@
         <div class="uk-modal-dialog">
             <button type="button" class="uk-modal-close uk-close"></button>
             <div class="uk-text-center">
-                <a href="assets/img/avatars/avatar_02.png" data-uk-lightbox>
-                    <img id="mod0" src="assets/img/avatars/avatar_02.png" class="image_100 uk-border-circle">
+                <!-- data-uk-lightbox -->
+                <a href="{% static 'assets/img/avatars/avatar_02.png' %}" id="modal_link" > 
+                    <img id="modal_profile" src="{% static 'assets/img/avatars/avatar_02.png' %}" class="image_100 uk-border-circle">
                 </a>
-                <h3 id="mod1" class="uk-margin-top">Janet Lucas</h3>
+                <h3 id="modal_fullname" class="uk-margin-top">Janet Lucas</h3>
             </div>
             <ul class="uk-list uk-list-divider">
                 <li>
                     <span class="uk-float-left">User Name</span>
-                    <strong id="mod2" class="uk-float-right">Janet Lucas</strong>
+                    <strong id="modal_username" class="uk-float-right">Janet Lucas</strong>
                 </li>
                 <li>
                     <span class="uk-float-left">Gender</span>
-                    <strong id="mod3" class="uk-float-right">Female</strong>
+                    <strong id="modal_gendor" class="uk-float-right">Female</strong>
                 </li>
                 <li>
                     <span class="uk-float-left">Date Of Birth</span>
-                    <strong id="mod4" class="uk-float-right">10-01-1982</strong>
+                    <strong id="modal_birthday" class="uk-float-right">10-01-1982</strong>
                 </li>
                 <li>
                     <span class="uk-float-left">Email</span>
-                    <strong id="mod5" class="uk-float-right">ruth.sullivan@mail.com</strong>
+                    <strong id="modal_email" class="uk-float-right">ruth.sullivan@mail.com</strong>
                 </li>
                 <li>
                     <span class="uk-float-left">Phone</span>
-                    <strong id="mod6" class="uk-float-right">(449)597-6415</strong>
+                    <strong id="modal_phone" class="uk-float-right">(449)597-6415</strong>
                 </li>
                 <li>
                     <span class="uk-float-left">Country</span>
-                    <strong id="mod7" class="uk-float-right">Brazil</strong>
+                    <strong id="modal_country" class="uk-float-right">Brazil</strong>
                 </li>
                 <li>
                     <span class="uk-float-left">Address</span>
-                    <strong id="mod8" class="uk-float-right">Rua Rio Grande do Sul 39, Curitiba</strong>
+                    <strong id="modal_address" class="uk-float-right">Rua Rio Grande do Sul 39, Curitiba</strong>
                 </li>
             </ul>
         </div>
     </div>
     <script>
-        function change_model(t) {
-            var a = document.getElementById("row" + t.dataset.index)
-            for(var i = 0; i <= 8; i++){
-                if(i == 0){
-                    console.log("src ", document.getElementById("tr" + i + t.dataset.index).innerHTML)
-                    document.getElementById("mod" + i).src = document.getElementById("tr" + i + t.dataset.index).innerHTML
-                }
-                else
-                    document.getElementById("mod" + i).innerHTML = document.getElementById("tr" + i + t.dataset.index).innerHTML
-                console.log(document.getElementById("tr" + i + t.dataset.index))
-            }
-            console.log(a)
+        function view_modal(t) {
+            document.getElementById('modal_link').href = document.getElementById('td7_' + t.dataset.index).innerHTML.trim();
+            document.getElementById('modal_profile').src = document.getElementById('td7_' + t.dataset.index).innerHTML.trim();
+            document.getElementById('modal_fullname').innerHTML = document.getElementById('td1_' + t.dataset.index).innerHTML;
+            document.getElementById('modal_username').innerHTML = document.getElementById('td2_' + t.dataset.index).innerHTML;
+            document.getElementById('modal_gendor').innerHTML = document.getElementById('td3_' + t.dataset.index).innerHTML;
+            document.getElementById('modal_birthday').innerHTML = document.getElementById('td9_' + t.dataset.index).innerHTML;
+            document.getElementById('modal_email').innerHTML = document.getElementById('td4_' + t.dataset.index).innerHTML;
+            document.getElementById('modal_phone').innerHTML = document.getElementById('td5_' + t.dataset.index).innerHTML;
+            document.getElementById('modal_country').innerHTML = document.getElementById('td6_' + t.dataset.index).innerHTML;
+            document.getElementById('modal_address').innerHTML = document.getElementById('td8_' + t.dataset.index).innerHTML;
         }
     </script>
 {% endblock content %}
