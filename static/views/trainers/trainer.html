@@ -1,195 +1,189 @@
 
 
 {% extends "main/index.html" %}
-
+{% load static %}
 {% block content %}
-    <div id="page_content_inner">
-
-            <div class="uk-grid uk-margin-bottom table-filter">
-                <div class="uk-width-medium-1-6">
-                    <select data-md-selectize data-md-selectize-bottom data-placeholder="Records Per Page">
-                        <option>10</option>
-                        <option>25</option>
-                        <option>50</option>
-                    </select>
-                </div>
-                <div class="uk-width-medium-1-6">
-                    <select data-md-selectize data-md-selectize-bottom data-placeholder="Filter By Status">
-                        <option>Activated</option>
-                        <option>Deactivated</option>
-                    </select>
-                </div>
-                <div class="uk-width-medium-1-6">
-                    <select data-md-selectize data-md-selectize-bottom data-placeholder="Filter by Country">
-                        <option>Romania</option>
-                        <option>Kuwait</option>
-                    </select>
-                </div>
-                <div class="uk-width-medium-1-6">
-                    <input type="text" class="md-input md-input-custom" placeholder="Filter by User" name="filter_uname">
-                </div>
-                <div class="uk-width-medium-1-6">
-                    <input type="email" class="md-input md-input-custom" placeholder="Filter by Email" name="filter_email">
-                </div>
-                <div class="uk-width-medium-1-6">
-                    <button type="submit" class="md-btn md-btn-primary md-btn-block uk-margin-small-top">Submit</button>
-                </div>
-            </div>
-
-            <div class="md-card uk-margin-medium-bottom">
-                <div class="md-card-content uk-padding-remove">
-                    <table class="uk-table uk-table-striped uk-table-nowrap table_check">
-                        <thead>
-                            <tr>
-                               <th>Name</th>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Features</th>
-                                <th>Country</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for score in users %}
-                                 <tr id="row{{score.id}}">
-                                <td id="tr1{{score.id}}">{{score.first_name}}</td>
-                                <td id="tr2{{score.id}}">{{score.username}}</td>
-
-                                <td id="tr5{{score.id}}">{{score.email}}</td>
-                                <td id="tr6{{score.id}}">{{score.phone}}</td>
-                                     <td id="tr3{{score.id}}">
-                                         {% for p in score.features.all %}
-                                {{p.name}}
-                                {%endfor%}</td>
-                                <td id="tr7{{score.id}}">{{score.country}}</td>
-                                <td id="tr8{{score.id}}" style="display:none">{{score.address}}</td>
-                                     <td id="tr0{{score.id}}" style="display:none">{{score.logo.url}}</td>
-                                     <td id="tr4{{score.id}}" style="display:none">{{score.dob}}</td>
-                                     <!--<td  style="display:none">{{score.country}}</td>-->
-                                <td>
-                                    <span class="uk-badge uk-badge-{{ score.status|yesno:'success,danger' }}">{{ score.status|yesno:"Activated,Deactivated" }}</span><br>
-                                    <span class="uk-badge uk-badge-{{ score.is_verified|yesno:'success,danger' }}">{{ score.is_verified|yesno:"Verified,Not Verified" }}</span>
-                                </td>
-                                <td>
-                                    <div class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
-                                        <button class="md-btn md-btn-primary md-btn-small">Action <i class="material-icons">&#xE313;</i></button>
-                                        <div class="uk-dropdown">
-                                            <ul class="uk-nav uk-nav-dropdown">
-                                                <li>
-                                                    <a onclick="change_model(this)" data-index="{{score.id}}" href="#" class="uk-text-success" data-uk-modal="{target:'#userViewModal'}">
-                                                        <i class="material-icons uk-text-success icon-bold-eye"></i>
-                                                        <span>View</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="{% url 'trainer:updatestatus' score.id %}" class="uk-text-{{ score.status|yesno:'warning,success' }}">
-                                                        <i class="material-icons uk-text-warning {{ score.status|yesno:'icon-bold-timer-pause,icon-ellipse-green' }}"></i>
-                                                        <span>{{ score.status|yesno:"Deactivate,Activate" }}</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a  href="{% url 'trainer:edituser' score.id %}" class="uk-text-primary">
-                                                        <i class="material-icons uk-text-primary icon-bold-edit"></i>
-                                                        <span>Modify</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="{% url 'trainer:deleteuser' score.id %}" class="uk-text-danger">
-                                                        <i class="material-icons uk-text-danger icon-bold-trash"></i>
-                                                        <span>Delete</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            {% endfor %}
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="uk-flex uk-flex-between">
-                <div>
-                    <span>Showing 1 to 10 of 177 entries</span>
-                </div>
-                <div>
-                    <ul class="uk-pagination">
-                        <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
-                        <li class="uk-active"><span>1</span></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><span>&hellip;</span></li>
-                        <li><a href="#">10</a></li>
-                        <li><a href="#"><i class="uk-icon-angle-double-right"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-
+<div id="page_content_inner">
+    <div class="uk-grid uk-margin-bottom table-filter">
+        <div class="uk-width-medium-1-6">
+            <select data-md-selectize data-md-selectize-bottom data-placeholder="Records Per Page">
+                <option>10</option>
+                <option>25</option>
+                <option>50</option>
+            </select>
         </div>
-    <div class="uk-modal" id="userViewModal">
-        <div class="uk-modal-dialog">
-            <button type="button" class="uk-modal-close uk-close"></button>
-            <div class="uk-text-center">
-                <a href="assets/img/avatars/avatar_02.png" data-uk-lightbox>
-                    <img id="mod0" src="assets/img/avatars/avatar_02.png" class="image_100 uk-border-circle">
-                </a>
-                <h3 id="mod1" class="uk-margin-top">Janet Lucas</h3>
-            </div>
-            <ul class="uk-list uk-list-divider">
-                <li>
-                    <span class="uk-float-left">User Name</span>
-                    <strong id="mod2" class="uk-float-right">Janet Lucas</strong>
-                </li>
-                <li>
-                    <span class="uk-float-left">Features</span>
-                    <strong id="mod3" class="uk-float-right">Female</strong>
-                </li>
-                <li>
-                    <span class="uk-float-left">Date Of Birth</span>
-                    <strong id="mod4" class="uk-float-right">10-01-1982</strong>
-                </li>
-                <li>
-                    <span class="uk-float-left">Email</span>
-                    <strong id="mod5" class="uk-float-right">ruth.sullivan@mail.com</strong>
-                </li>
-                <li>
-                    <span class="uk-float-left">Phone</span>
-                    <strong id="mod6" class="uk-float-right">(449)597-6415</strong>
-                </li>
-                <li>
-                    <span class="uk-float-left">Country</span>
-                    <strong id="mod7" class="uk-float-right">Brazil</strong>
-                </li>
-                <li>
-                    <span class="uk-float-left">Address</span>
-                    <strong id="mod8" class="uk-float-right">Rua Rio Grande do Sul 39, Curitiba</strong>
-                </li>
+        <div class="uk-width-medium-1-6">
+            <select data-md-selectize data-md-selectize-bottom data-placeholder="Filter By Status">
+                <option>Activated</option>
+                <option>Deactivated</option>
+            </select>
+        </div>
+        <div class="uk-width-medium-1-6">
+            <select data-md-selectize data-md-selectize-bottom data-placeholder="Filter by Country">
+                <option>Romania</option>
+                <option>Kuwait</option>
+            </select>
+        </div>
+        <div class="uk-width-medium-1-6">
+            <input type="text" class="md-input md-input-custom" placeholder="Filter by User" name="filter_uname">
+        </div>
+        <div class="uk-width-medium-1-6">
+            <input type="email" class="md-input md-input-custom" placeholder="Filter by Email" name="filter_email">
+        </div>
+        <div class="uk-width-medium-1-6">
+            <button type="submit" class="md-btn md-btn-primary md-btn-block uk-margin-small-top">Submit</button>
+        </div>
+    </div>
+    <div class="md-card uk-margin-medium-bottom">
+        <div class="md-card-content uk-padding-remove">
+            <table class="uk-table uk-table-striped uk-table-nowrap table_check">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Country</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for trainer in trainers %}
+                    <tr id="row_{{trainer.id}}">
+                        <td id="td1_{{trainer.id}}">
+                            {% if trainer.business.user.fullname %}
+                                {{ trainer.business.user.fullname }}
+                            {% else %}
+                                {{ trainer.business.user.get_fullname }}
+                            {% endif %}
+                        </td>
+                        <td id="td2_{{trainer.id}}">{{trainer.business.user.username}}</td>
+                        <td id="td3_{{trainer.id}}">{{trainer.business.user.email}}</td>
+                        <td id="td4_{{trainer.id}}">{{trainer.business.user.phone}}</td>
+                        <td id="td5_{{trainer.id}}">{{trainer.business.user.country}}</td>
+                        <td id="td6_{{trainer.id}}" style="display:none">{{trainer.business.user.address}}</td>
+                        <td id="td7_{{trainer.id}}" style="display:none">
+                            {% if trainer.logo%}
+                                {{ trainer.logo.url }}
+                            {% else %}
+                                {{ '/media/default/trainer_logo.png' }}
+                            {% endif %}
+                        </td>
+                        <td id="td8_{{trainer.id}}" style="display:none">{{trainer.business.user.birthday}}</td>
+                        <td>
+                            <span class="uk-badge uk-badge-{{ trainer.business.user.status|yesno:'success,danger' }}">{{ trainer.business.user.status|yesno:"Activated,Deactivated" }}</span><br>
+                            <span class="uk-badge uk-badge-{{ trainer.business.user.is_verified|yesno:'success,danger' }}">{{ trainer.business.user.is_verified|yesno:"Verified,Not Verified" }}</span>
+                        </td>
+                        <td>
+                            <div class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
+                                <button class="md-btn md-btn-primary md-btn-small">Action <i class="material-icons">&#xE313;</i></button>
+                                <div class="uk-dropdown">
+                                    <ul class="uk-nav uk-nav-dropdown">
+                                        <li>
+                                            <a onclick="view_model(this)" data-index="{{trainer.id}}" href="#" class="uk-text-success" data-uk-modal="{target:'#userViewModal'}">
+                                                <i class="material-icons uk-text-success icon-bold-eye"></i>
+                                                <span>View</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'trainer:event_update_status' trainer.id %}" class="uk-text-{{ trainer.business.user.status|yesno:'warning,success' }}">
+                                                <i class="material-icons uk-text-warning {{ trainer.business.user.status|yesno:'icon-bold-timer-pause,icon-ellipse-green' }}"></i>
+                                                <span>{{ trainer.business.user.status|yesno:"Deactivate,Activate" }}</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a  href="{% url 'trainer:event_update_info' trainer.id %}" class="uk-text-primary">
+                                                <i class="material-icons uk-text-primary icon-bold-edit"></i>
+                                                <span>Modify</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'trainer:event_delete' trainer.id %}" class="uk-text-danger">
+                                                <i class="material-icons uk-text-danger icon-bold-trash"></i>
+                                                <span>Delete</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="uk-flex uk-flex-between">
+        <div>
+            <span>Showing 1 to 10 of 177 entries</span>
+        </div>
+        <div>
+            <ul class="uk-pagination">
+                <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
+                <li class="uk-active"><span>1</span></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><span>&hellip;</span></li>
+                <li><a href="#">10</a></li>
+                <li><a href="#"><i class="uk-icon-angle-double-right"></i></a></li>
             </ul>
         </div>
     </div>
+</div>
+<div class="uk-modal" id="userViewModal">
+    <div class="uk-modal-dialog">
+        <button type="button" class="uk-modal-close uk-close"></button>
+        <div class="uk-text-center">
+            <a href="{% static 'assets/img/avatars/avatar_02.png' %}" data-uk-lightbox id="modal_link">
+                <img id="modal_profile" src="{% static 'assets/img/avatars/avatar_02.png' %}" class="image_100 uk-border-circle">
+            </a>
+            <h3 id="modal_fullname" class="uk-margin-top">Janet Lucas</h3>
+        </div>
+        <ul class="uk-list uk-list-divider">
+            <li>
+                <span class="uk-float-left">User Name</span>
+                <strong id="modal_username" class="uk-float-right">Janet Lucas</strong>
+            </li>
+            <li>
+                <span class="uk-float-left">Gendor</span>
+                <strong id="modal_gendor" class="uk-float-right">None</strong>
+            </li>
+            <li>
+                <span class="uk-float-left">Date Of Birth</span>
+                <strong id="modal_birthday" class="uk-float-right">10-01-1982</strong>
+            </li>
+            <li>
+                <span class="uk-float-left">Email</span>
+                <strong id="modal_email" class="uk-float-right">ruth.sullivan@mail.com</strong>
+            </li>
+            <li>
+                <span class="uk-float-left">Phone</span>
+                <strong id="modal_phone" class="uk-float-right">(449)597-6415</strong>
+            </li>
+            <li>
+                <span class="uk-float-left">Country</span>
+                <strong id="modal_country" class="uk-float-right">Brazil</strong>
+            </li>
+            <li>
+                <span class="uk-float-left">Address</span>
+                <strong id="modal_address" class="uk-float-right">Rua Rio Grande do Sul 39, Curitiba</strong>
+            </li>
+        </ul>
+    </div>
+</div>
 <script>
-    function change_model(t){
-
-    var a = document.getElementById("row"+t.dataset.index)
-    for(var i=0;i<=8;i++){
-    if(i==0){
-    console.log("src ",document.getElementById("tr"+i+t.dataset.index).innerHTML)
-    document.getElementById("mod"+i).src=document.getElementById("tr"+i+t.dataset.index).innerHTML
-    }
-    else{
-    document.getElementById("mod"+i).innerHTML=document.getElementById("tr"+i+t.dataset.index).innerHTML
-    }
-        console.log(document.getElementById("tr"+i+t.dataset.index))
-    }
-    console.log(a)
+    function view_model(t){
+        document.getElementById('modal_link').href = document.getElementById('td7_' + t.dataset.index).innerHTML.trim();
+        document.getElementById('modal_profile').src = document.getElementById('td7_' + t.dataset.index).innerHTML.trim();
+        document.getElementById('modal_fullname').innerHTML = document.getElementById('td1_' + t.dataset.index).innerHTML;
+        document.getElementById('modal_username').innerHTML = document.getElementById('td2_' + t.dataset.index).innerHTML;
+        document.getElementById('modal_birthday').innerHTML = document.getElementById('td8_' + t.dataset.index).innerHTML;
+        document.getElementById('modal_email').innerHTML = document.getElementById('td3_' + t.dataset.index).innerHTML;
+        document.getElementById('modal_phone').innerHTML = document.getElementById('td4_' + t.dataset.index).innerHTML;
+        document.getElementById('modal_country').innerHTML = document.getElementById('td5_' + t.dataset.index).innerHTML;
+        document.getElementById('modal_address').innerHTML = document.getElementById('td6_' + t.dataset.index).innerHTML;
     }
 </script>
-
 {% endblock content %}

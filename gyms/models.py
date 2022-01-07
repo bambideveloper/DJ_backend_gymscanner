@@ -89,7 +89,7 @@ class Gym_Timing(models.Model):
         db_table = 'gym_timing'
 
 class Gym_Bank(models.Model):
-    gym = models.ForeignKey(Gyms, on_delete = models.CASCADE)
+    gym = models.OneToOneField(Gyms, on_delete = models.CASCADE)
     name = models.CharField('Bank Name', max_length = 250)
     account_number = models.CharField('Bank Account Number', max_length = 250)
     swift_code = models.CharField('Swift Code', max_length = 250)

@@ -5,12 +5,13 @@ from masters.models import Country
 # Create your views here.
 def index(request):
     context = {}
-    context["users"]= Users.objects.all()
+    context["users"]= Users.objects.filter(businesses__business_type = 0)
     context["title"] = "Users"
     context["user_section"] = "current_section"
     context["user_index"] = "act_item"
     context["user"] = request.user
     return render(request, 'users/user.html', context )
+
 def view_add(request):
     context = {}
     context["title"] = "Add Users"
@@ -20,6 +21,7 @@ def view_add(request):
     return render(request, 'users/add_user.html', context )
 
 def event_insert(request):
+    context = {}
     if request.method == 'POST':
         message = 'User added successfully'
         user = Users.objects.create(
@@ -35,29 +37,27 @@ def event_insert(request):
             profile = request.FILES.get('user_profile_photo')
         )
 
+        Businesses.objects.create(
+            user = user,
+            business_type = 0
+        )
+
         if request.POST.get("password") == request.POST.get("confirm_password"):
             user.set_password(request.POST.get("password"))
             user.save()
         else:
             message = 'Password do not match'
             
-        context = {}
-        context["title"] = "Add Users"
-        context["country_list"] = Country.objects.all()
-        context["user_section"] = "current_section"
-        context["user"] = request.user
-        context["user_add"] = "act_item"
         context["message"] = message
-        return render(request, 'users/add_user.html',context )
-    else:
-        context = {}
-        context["title"] = "Add Users"
-        context["country_list"] = Country.objects.all()
-        context["user_section"] = "current_section"
-        context["user"] = request.user
-        context["user_add"] = "act_item"
-        return render(request, 'users/add_user.html',context )
+    context["title"] = "Add Users"
+    context["country_list"] = Country.objects.all()
+    context["user_section"] = "current_section"
+    context["user"] = request.user
+    context["user_add"] = "act_item"
+    return render(request, 'users/add_user.html',context )
+
 def event_update_info(request, pk):
+    context = {}
     if request.method == "POST":
         message = 'User updated successfully'
         user = Users.objects.get(id = pk)
@@ -87,23 +87,15 @@ def event_update_info(request, pk):
             user.save()
         else:
             message = 'Password do not match'
-        
-        context = {}
-        context['sel_user'] = Users.objects.get(id = pk)
-        context['title'] = "Edit User"
-        context['country_list'] = Country.objects.all();
-        context['user_section'] = "current_section"
-        context['user_index'] = "act_item"
         context["message"] = message
-        return render(request, 'users/edit_user.html', context )
-    else:
-        context = {}
-        context['sel_user'] = Users.objects.get(id = pk)
-        context['title'] = "Edit User"
-        context['country_list'] = Country.objects.all();
-        context['user_section'] = "current_section"
-        context['user_index'] = "act_item"
-        return render(request, 'users/edit_user.html', context )
+    
+    context['sel_user'] = Users.objects.get(id = pk)
+    context['title'] = "Edit User"
+    context['country_list'] = Country.objects.all();
+    context['user_section'] = "current_section"
+    context['user_index'] = "act_item"
+    return render(request, 'users/edit_user.html', context )
+    
 def event_update_status(request, pk):
     sel_user = Users.objects.get(id = pk)
     sel_user.status = False if sel_user.status else True

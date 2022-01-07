@@ -67,9 +67,9 @@
                 <label>Country <strong class="uk-text-danger">*</strong></label>
                 <div class="selectize_custom">
                     <select data-md-selectize data-md-selectize-bottom data-placeholder="Country..." name="country">
-                        {% for country in country_list%}
+                    {% for country in country_list%}
                         <option  value="{{country.name}}" {% if i.name == sel_user.country %} selected {% endif %}>{{country.name}}</option>
-                        {%endfor%}
+                    {%endfor%}
                     </select>
                 </div>
             </div>

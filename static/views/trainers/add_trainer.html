@@ -1,140 +1,127 @@
 {% extends "main/index.html" %}
 
 {% block content %}
-     <div id="page_content_inner">
-
-            <form action="{%url 'trainer:addtrainer' %}" method="POST" enctype="multipart/form-data">
+    <div id="page_content_inner">
+        {% if message %}<h3 style="color:red">{{ message }}</h3>{% endif %}
+        <form action="{%url 'trainer:event_insert' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-                <div class="uk-grid">
-                    <div class="uk-width-1-5">
-                        <input required type="file" class="dropify dropify_logo" name="image_file">
-                    </div>
-                    <div class="uk-width-4-5">
-                        <input required type="file" class="dropify dropify_banner_images" name="image_file1">
+            <div class="uk-grid">
+                <div class="uk-width-1-5">
+                    <input type="file" class="dropify dropify_logo" name="image_logo">
+                </div>
+                <div class="uk-width-4-5">
+                    <input type="file" class="dropify dropify_banner_images" name="image_banner">
+                </div>
+            </div>
+
+            <div class="uk-grid">
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Trainer Full Name <strong class="uk-text-danger">*</strong></label>
+                    <input required type="text" class="md-input label-fixed md-input-custom" placeholder="Trainer Full Name" name="fullname">
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Trainer Username <strong class="uk-text-danger">*</strong></label>
+                    <input required type="text" class="md-input label-fixed md-input-custom" placeholder="Trainer Username" name="username">
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Email <strong class="uk-text-danger">*</strong></label>
+                    <input required type="email" class="md-input label-fixed md-input-custom" placeholder="Email" name="email">
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Website Url <strong class="uk-text-danger">*</strong></label>
+                    <input required type="text" class="md-input label-fixed md-input-custom" placeholder="Website Url" name="website">
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Phone Number <strong class="uk-text-danger">*</strong></label>
+                    <input required type="tel" class="md-input label-fixed md-input-custom" placeholder="Phone Number" name="phone">
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Vendor Id <strong class="uk-text-danger">*</strong></label>
+                    <input required type="text" class="md-input label-fixed md-input-custom" placeholder="Vendor Id" name="vendor">
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Categories <strong class="uk-text-danger">*</strong></label>
+                    <div class="selectize_custom">
+                        <select name="categories" data-md-selectize data-md-selectize-bottom data-placeholder="Categories..." multiple>
+                            {% for category in categories%}
+                            <option value="{{category.id}}">{{category.name}}</option>
+                            {%endfor%}
+                        </select>
                     </div>
                 </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Languages Spoken <strong class="uk-text-danger">*</strong></label>
+                    <div class="selectize_custom">
+                        <select name="languages" data-md-selectize data-md-selectize-bottom data-placeholder="Languages Spoken..." multiple>
+                            {% for language in languages%}
+                            <option value="{{language.id}}">{{language.title}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Individual Commission</label>
+                    <input type="text" class="md-input label-fixed md-input-custom" placeholder="Individual Commission" name="commission">
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Country <strong class="uk-text-danger">*</strong></label>
+                    <div class="selectize_custom">
+                        <select name="country" data-md-selectize data-md-selectize-bottom data-placeholder="Country...">
+                            {% for contury in contury_list%}
+                            <option value="{{contury.name}}">{{contury.name}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Address <strong class="uk-text-danger">*</strong></label>
+                    <input required type="text" class="md-input label-fixed md-input-custom" placeholder="Address" name="address">
+                </div>
+                <div class="uk-width-3-3 uk-margin-medium-bottom">
+                    <label>About Trainer <strong class="uk-text-danger">*</strong></label>
+                    <textarea required class="md-input label-fixed md-input-custom" placeholder="About Trainer" name="about" rows="5"></textarea>
+                </div>
+                <div class="uk-width-1-2 uk-margin-medium-bottom">
+                    <label>Youtube Video</label>
+                    <input  type="text" class="md-input label-fixed md-input-custom" placeholder='Enter only youtube video id Like-"X4aKpjO2Nk4"' name="youtube">
+                </div>
+                <div class="uk-width-1-2 uk-margin-medium-bottom">
+                    <label>
+                        <div class="uk-flex uk-flex-between">
+                            <span>Enter Ceritifcation/Qualification with Year</span>
+                            <a href="#"><i class="material-icons md-icon"><span class="icon-Group-15204"><span class="path1"></span><span class="path2"></span></span></i></a>
+                        </div>
+                    </label>
+                    <input  type="text" class="md-input label-fixed md-input-custom" placeholder="Enter Ceritifcation/Qualification with Year" name="certification">
+                </div>
+            </div>
 
+            <div class="uk-bg-dark uk-padding-1 uk-margin-bottom">
+                <h2 class="uk-text-white"><i class="material-icons uk-text-white uk-padding-half">account_balance</i> Bank Details</h2>
                 <div class="uk-grid">
-                    <div class="uk-width-1-3 uk-margin-medium-bottom">
-                        <label>Trainer Full Name <strong class="uk-text-danger">*</strong></label>
-                        <input required type="text" class="md-input label-fixed md-input-custom" placeholder="Trainer Full Name" name="trainer_name">
-                    </div>
-                    <div class="uk-width-1-3 uk-margin-medium-bottom">
-                        <label>Trainer Username <strong class="uk-text-danger">*</strong></label>
-                        <input required type="text" class="md-input label-fixed md-input-custom" placeholder="Trainer Username" name="trainer_username">
-                    </div>
-                    <div class="uk-width-1-3 uk-margin-medium-bottom">
-                        <label>Email <strong class="uk-text-danger">*</strong></label>
-                        <input required type="email" class="md-input label-fixed md-input-custom" placeholder="Email" name="email">
-                    </div>
-                    <div class="uk-width-1-3 uk-margin-medium-bottom">
-                        <label>Website Url <strong class="uk-text-danger">*</strong></label>
-                        <input required type="text" class="md-input label-fixed md-input-custom" placeholder="Website Url" name="web_url">
-                    </div>
-                    <div class="uk-width-1-3 uk-margin-medium-bottom">
-                        <label>Phone Number <strong class="uk-text-danger">*</strong></label>
-                        <input required type="tel" class="md-input label-fixed md-input-custom" placeholder="Phone Number" name="phon_no">
-                    </div>
-                    <div class="uk-width-1-3 uk-margin-medium-bottom">
-                        <label>Features <strong class="uk-text-danger">*</strong></label>
-                        <div class="selectize_custom">
-                            <select name="features" data-md-selectize data-md-selectize-bottom data-placeholder="Features..." multiple>
-                                {% for i in feature%}
-                                <option value="{{i.id}}">{{i.name}}</option>
-                                {%endfor%}
-                                <!--<option>Feature 2</option>-->
-                                <!--<option>Feature 3</option>-->
-                            </select>
-                        </div>
-                    </div>
-                    <div class="uk-width-1-3 uk-margin-medium-bottom">
-                        <label>Vendor Id <strong class="uk-text-danger">*</strong></label>
-                        <input required type="text" class="md-input label-fixed md-input-custom" placeholder="Vendor Id" name="ven_id">
-                    </div>
-                    <div class="uk-width-1-3 uk-margin-medium-bottom">
-                        <label>Categories <strong class="uk-text-danger">*</strong></label>
-                        <div class="selectize_custom">
-                            <select name="category" data-md-selectize data-md-selectize-bottom data-placeholder="Categories..." multiple>
-                                {% for i in cat%}
-                                <option value="{{i.id}}">{{i.name}}</option>
-                                {%endfor%}
-                            </select>
-                        </div>
-                    </div>
-                    <div class="uk-width-1-3 uk-margin-medium-bottom">
-                        <label>Languages Spoken <strong class="uk-text-danger">*</strong></label>
-                        <div class="selectize_custom">
-                            <select name="language" data-md-selectize data-md-selectize-bottom data-placeholder="Languages Spoken..." multiple>
-                                {% for i in lang%}
-                                <option value="{{i.id}}">{{i.title}}</option>
-                                {%endfor%}
-                            </select>
-                        </div>
-                    </div>
-                    <div class="uk-width-1-3 uk-margin-medium-bottom">
-                        <label>Individual Commission</label>
-                        <input type="text" class="md-input label-fixed md-input-custom" placeholder="Individual Commission" name="indivi_com">
-                    </div>
-                    <div class="uk-width-1-3 uk-margin-medium-bottom">
-                        <label>Country <strong class="uk-text-danger">*</strong></label>
-                        <div class="selectize_custom">
-                            <select name="country" data-md-selectize data-md-selectize-bottom data-placeholder="Country...">
-                               {% for i in cont%}
-                                <option value="{{i.name}}">{{i.name}}</option>
-                                {%endfor%}
-                            </select>
-                        </div>
-                    </div>
-                    <div class="uk-width-1-3 uk-margin-medium-bottom">
-                        <label>Address <strong class="uk-text-danger">*</strong></label>
-                        <input required type="text" class="md-input label-fixed md-input-custom" placeholder="Address" name="address">
-                    </div>
-                    <div class="uk-width-3-3 uk-margin-medium-bottom">
-                        <label>About Trainer <strong class="uk-text-danger">*</strong></label>
-                        <textarea required class="md-input label-fixed md-input-custom" placeholder="About Trainer" name="about" rows="5"></textarea>
+                    <div class="uk-width-1-2 uk-margin-medium-bottom">
+                        <label class="uk-text-white">Bank Name <strong class="uk-text-danger">*</strong></label>
+                        <input required type="text" class="md-input label-fixed md-input-custom" placeholder="Bank Name" name="bank_name">
                     </div>
                     <div class="uk-width-1-2 uk-margin-medium-bottom">
-                        <label>Youtube Video</label>
-                        <input  type="text" class="md-input label-fixed md-input-custom" placeholder='Enter only youtube video id Like-"X4aKpjO2Nk4"' name="you_video">
+                        <label class="uk-text-white">Bank Account Number <strong class="uk-text-danger">*</strong></label>
+                        <input required type="number" class="md-input label-fixed md-input-custom" placeholder="Bank Account Number" name="bank_account">
                     </div>
                     <div class="uk-width-1-2 uk-margin-medium-bottom">
-                        <label>
-                            <div class="uk-flex uk-flex-between">
-                                <span>Enter Ceritifcation/Qualification with Year</span>
-                                <a href="#"><i class="material-icons md-icon"><span class="icon-Group-15204"><span class="path1"></span><span class="path2"></span></span></i></a>
-                            </div>
-                        </label>
-                        <input  type="text" class="md-input label-fixed md-input-custom" placeholder="Enter Ceritifcation/Qualification with Year" name="certification">
+                        <label class="uk-text-white">Swift Code <strong class="uk-text-danger">*</strong></label>
+                        <input required type="number" class="md-input label-fixed md-input-custom" placeholder="Swift Code" name="swift_code">
+                    </div>
+                    <div class="uk-width-1-2 uk-margin-medium-bottom">
+                        <label class="uk-text-white">Account Holder Name <strong class="uk-text-danger">*</strong></label>
+                        <input required type="text" class="md-input label-fixed md-input-custom" placeholder="Account Holder Name" name="holder_name">
                     </div>
                 </div>
+            </div>
 
-                <div class="uk-bg-dark uk-padding-1 uk-margin-bottom">
-                    <h2 class="uk-text-white"><i class="material-icons uk-text-white uk-padding-half">account_balance</i> Bank Details</h2>
-                    <div class="uk-grid">
-                        <div class="uk-width-1-2 uk-margin-medium-bottom">
-                            <label class="uk-text-white">Bank Name <strong class="uk-text-danger">*</strong></label>
-                            <input required type="text" class="md-input label-fixed md-input-custom" placeholder="Bank Name" name="bank_name">
-                        </div>
-                        <div class="uk-width-1-2 uk-margin-medium-bottom">
-                            <label class="uk-text-white">Bank Account Number <strong class="uk-text-danger">*</strong></label>
-                            <input required type="number" class="md-input label-fixed md-input-custom" placeholder="Bank Account Number" name="bank_account">
-                        </div>
-                        <div class="uk-width-1-2 uk-margin-medium-bottom">
-                            <label class="uk-text-white">Swift Code <strong class="uk-text-danger">*</strong></label>
-                            <input required type="number" class="md-input label-fixed md-input-custom" placeholder="Swift Code" name="sft_code">
-                        </div>
-                        <div class="uk-width-1-2 uk-margin-medium-bottom">
-                            <label class="uk-text-white">Account Holder Name <strong class="uk-text-danger">*</strong></label>
-                            <input required type="text" class="md-input label-fixed md-input-custom" placeholder="Account Holder Name" name="h_name">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="uk-float-right">
-                    <button type="submit" class="md-btn md-btn-primary">Submit</button>
-                    <button type="reset" class="md-btn">Reset</button>
-                </div>
-            </form>
-
-        </div>
+            <div class="uk-float-right">
+                <button type="submit" class="md-btn md-btn-primary">Save</button>
+                <button type="reset" class="md-btn">Reset</button>
+            </div>
+        </form>
+    </div>
  {% endblock content %}

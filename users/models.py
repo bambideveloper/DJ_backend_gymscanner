@@ -58,7 +58,7 @@ class Users(AbstractBaseUser):
 
 class Businesses(models.Model):
     user = models.ForeignKey(Users, on_delete = models.CASCADE)
-    business_type = models.BooleanField('Bussiness Type', default = False)
+    business_type = models.IntegerField('Bussiness Type', default = 0)
     vendor = models.CharField('Vendor ID', max_length = 250, null = True)
     website = models.CharField("Website", max_length = 250, null = True)
     youtube = models.CharField('Youtube', max_length = 250, null = True)
