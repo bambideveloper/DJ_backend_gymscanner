@@ -1,33 +1,31 @@
 {% extends "main/index.html" %}
 
-{% block content %}    <div id="page_content_inner">
-            
-             
-           <form action="{% if has_data %} {%url 'setting:add_bank_settings' %} {% else %} {%url 'setting:update_bank_settings' data.0.id %} {%endif%}" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-                <div class="uk-grid">
-                    <div class="uk-width-1-2 uk-margin-medium-bottom">
-                        <label>Bank Name <strong class="uk-text-danger">*</strong></label>
-                        <input type="text" class="md-input label-fixed md-input-custom" value="{{data.0.bank_name}}" placeholder="Bank Name" name="bank_name">
-                    </div>
-                    <div class="uk-width-1-2 uk-margin-medium-bottom">
-                        <label>Bank Account Number <strong class="uk-text-danger">*</strong></label>
-                        <input type="text" class="md-input label-fixed md-input-custom" value="{{data.0.bank_account}}" placeholder="Bank Account Number" name="bank_account">
-                    </div>
-                    <div class="uk-width-1-2 uk-margin-medium-bottom">
-                        <label>Bank Swift Code <strong class="uk-text-danger">*</strong></label>
-                        <input type="text" class="md-input label-fixed md-input-custom" value="{{data.0.bank_swift_code}}" placeholder="Bank Swift Code" name="bankk_scode">
-                    </div>
-                    <div class="uk-width-1-2 uk-margin-medium-bottom">
-                        <label>Account Holder Name <strong class="uk-text-danger">*</strong><label>
-                        <input type="text" class="md-input label-fixed md-input-custom" value="{{data.0.account_holder_name}}" placeholder="Account Holder Name" name="ah_name">
-                    </div>
+{% block content %}    
+    <div id="page_content_inner">      
+        <form action="{% if bank %} {% url 'setting:update_bank' bank.id %} {% else %} {% url 'setting:add_bank' %} {% endif %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+            <div class="uk-grid">
+                <div class="uk-width-1-2 uk-margin-medium-bottom">
+                    <label>Bank Name <strong class="uk-text-danger">*</strong></label>
+                    <input type="text" class="md-input label-fixed md-input-custom" value="{{bank.bank_name}}" placeholder="Bank Name" name="bank_name">
                 </div>
-                <div class="md-fab-wrapper md-fab-in-card md-fab-speed-dial-horizontal">
-                    <button type="submit" class="md-btn md-btn-primary">Submit</button>
-                    <button type="reset" class="md-btn">Reset</button>
+                <div class="uk-width-1-2 uk-margin-medium-bottom">
+                    <label>Bank Account Number <strong class="uk-text-danger">*</strong></label>
+                    <input type="text" class="md-input label-fixed md-input-custom" value="{{bank.bank_account}}" placeholder="Bank Account Number" name="bank_account">
                 </div>
-            </form>
-
-        </div>
-        {% endblock content %}
+                <div class="uk-width-1-2 uk-margin-medium-bottom">
+                    <label>Bank Swift Code <strong class="uk-text-danger">*</strong></label>
+                    <input type="text" class="md-input label-fixed md-input-custom" value="{{bank.bank_swift_code}}" placeholder="Bank Swift Code" name="bank_swift_code">
+                </div>
+                <div class="uk-width-1-2 uk-margin-medium-bottom">
+                    <label>Account Holder Name <strong class="uk-text-danger">*</strong><label>
+                    <input type="text" class="md-input label-fixed md-input-custom" value="{{bank.account_holder_name}}" placeholder="Account Holder Name" name="account_holder_name">
+                </div>
+            </div>
+            <div class="uk-float-right">
+                <button type="submit" class="md-btn md-btn-primary">Save</button>
+                <button type="reset" class="md-btn">Reset</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

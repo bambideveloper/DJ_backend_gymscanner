@@ -50,7 +50,7 @@ class Gym_Subscription(models.Model):
     plan_price = models.FloatField('Plan Price')
     created_at = models.DateTimeField('Created_At', auto_now_add = True)
     status = models.BooleanField('Activation', default = True)
-    description = models.ManyToManyField(Gym_Description, null = True, db_table = 'related_subscription_description')
+    description = models.ManyToManyField(Gym_Description, db_table = 'related_subscription_description')
     class Meta:
         db_table = 'gym_subscription'
 
@@ -70,11 +70,11 @@ class Gyms(models.Model):
         default = 'default/gym_video.jpg'
     )
 
-    banner = models.ManyToManyField(Banner, null = True, db_table = 'related_gyms_banner')
-    feature = models.ManyToManyField(Feature, null = True, db_table = 'related_gyms_feature')
-    category = models.ManyToManyField(Gym_Category, null = True, db_table = 'related_gyms_category')
-    subscription = models.ManyToManyField(Gym_Subscription, null = True, db_table = 'related_gyms_subscription')
-    review = models.ManyToManyField(Gym_Review, null = True, db_table = 'related_gyms_review')
+    banner = models.ManyToManyField(Banner, db_table = 'related_gyms_banner')
+    feature = models.ManyToManyField(Feature, db_table = 'related_gyms_feature')
+    category = models.ManyToManyField(Gym_Category, db_table = 'related_gyms_category')
+    subscription = models.ManyToManyField(Gym_Subscription, db_table = 'related_gyms_subscription')
+    review = models.ManyToManyField(Gym_Review, db_table = 'related_gyms_review')
 
     class Meta:
         db_table = 'gyms'

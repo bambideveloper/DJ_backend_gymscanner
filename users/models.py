@@ -42,7 +42,7 @@ class Users(AbstractBaseUser):
     gender = models.CharField('Gendor', choices = GENDER_CHOICES, max_length = 250, null = True)
     created_at = models.DateTimeField('Created At', default = timezone.now)
 
-    language = models.ManyToManyField(Language, null = True, db_table = 'related_users_language')
+    language = models.ManyToManyField(Language, db_table = 'related_users_language')
 
     profile = models.ImageField(
         upload_to = path_and_rename,

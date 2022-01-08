@@ -52,8 +52,8 @@ class Trainers(models.Model):
         upload_to = trainer_logo_path,
         default = 'default/trainer_logo.jpg',
     )
-    banner = models.ManyToManyField(Banner, null = True, db_table = 'related_trainers_banner')
-    category = models.ManyToManyField(Trainer_Category, null = True, db_table = 'related_trainers_category')
+    banner = models.ManyToManyField(Banner, db_table = 'related_trainers_banner')
+    category = models.ManyToManyField(Trainer_Category, db_table = 'related_trainers_category')
     
     class Meta:
         db_table = 'trainers'
