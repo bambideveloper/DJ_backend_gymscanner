@@ -13,8 +13,9 @@
                 </div>
                 <div class="uk-width-medium-1-6">
                     <select data-md-selectize data-md-selectize-bottom data-placeholder="Filter by Language">
-                        <option>Romania</option>
-                        <option>Kuwait</option>
+                    {% for language in languages%}
+                        <option value="{{language.id}}">{{language.title}}</option>
+                    {%endfor%}
                     </select>
                 </div>
                 <div class="uk-width-medium-1-6">
@@ -23,8 +24,8 @@
                 <div class="uk-width-medium-1-6">
                     <input type="email" class="md-input md-input-custom" placeholder="Filter by String" name="filter_string">
                 </div>
-                <div class="uk-width-medium-2-6">
-                    <button type="submit" class="md-btn md-btn-primary uk-margin-small-top uk-float-right">Submit</button>
+                <div class="uk-width-medium-1-6">
+                    <button type="submit" class="md-btn md-btn-primary uk-margin-small-top">Reset</button>
                 </div>
             </div>
             
