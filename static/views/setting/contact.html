@@ -2,32 +2,30 @@
 
 {% block content %}
    <div id="page_content_inner">
-            
-            <form action="{% if has_data %} {%url 'setting:add_contact_us_emails' %} {% else %} {%url 'setting:update_contact_us_emails' data.0.id %} {%endif%}" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-                <div class="uk-grid">
-                    <div class="uk-width-1-3 uk-margin-medium-bottom">
-                        <label>Email <strong class="uk-text-danger">*</strong></label>
-                        <input type="text" class="md-input label-fixed md-input-custom" value="{{data.0.email }}" placeholder="Email" name="email">
-                    </div>
-                    <div class="uk-width-1-3 uk-margin-medium-bottom">
-                        <label>Phone Number <strong class="uk-text-danger">*</strong></label>
-                        <input type="tel" class="md-input label-fixed md-input-custom" value="{{data.0.phone_number}}" placeholder="Phone Number" name="phone_nam">
-                    </div>
-                    <div class="uk-width-1-3 uk-margin-medium-bottom">
-                        <label>Contact Map</label>
-                        <input type="text" class="md-input label-fixed md-input-custom" value="{{data.0.contact_map}}" placeholder="Contact Map" name="contact_map">
-                    </div>
-                    <div class="uk-width-3-3 uk-margin-medium-bottom">
-                        <label>Contact Address</label>
-                        <input type="text" class="md-input label-fixed md-input-custom" value="{{data.0.contact_address}}" placeholder="Longitude" name="contact_add">
-                    </div>
+        <form action="{% if contact %} {%url 'setting:update_contact' contact.id %} {% else %} {%url 'setting:add_contact' %} {%endif%}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+            <div class="uk-grid">
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Email <strong class="uk-text-danger">*</strong></label>
+                    <input type="text" class="md-input label-fixed md-input-custom" value="{{contact.email }}" placeholder="Email" name="email">
                 </div>
-                <div class="md-fab-wrapper md-fab-in-card md-fab-speed-dial-horizontal">
-                    <button type="submit" class="md-btn md-btn-primary">Submit</button>
-                    <button type="reset" class="md-btn">Reset</button>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Phone Number <strong class="uk-text-danger">*</strong></label>
+                    <input type="tel" class="md-input label-fixed md-input-custom" value="{{contact.phone_number}}" placeholder="Phone Number" name="phone_number">
                 </div>
-            </form>
-
-        </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Contact Map</label>
+                    <input type="text" class="md-input label-fixed md-input-custom" value="{{contact.contact_map}}" placeholder="Contact Map" name="contact_map">
+                </div>
+                <div class="uk-width-3-3 uk-margin-medium-bottom">
+                    <label>Contact Address</label>
+                    <input type="text" class="md-input label-fixed md-input-custom" value="{{contact.contact_address}}" placeholder="Longitude" name="contact_address">
+                </div>
+            </div>
+            <div class="uk-float-right">
+                <button type="submit" class="md-btn md-btn-primary">Save</button>
+                <button type="reset" class="md-btn">Reset</button>
+            </div>
+        </form>
+    </div>
 {% endblock content %}

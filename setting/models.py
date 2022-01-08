@@ -7,58 +7,58 @@ DAY_CHOICES = (
 )
 
 class Site(models.Model):
-    site_title = models.CharField(max_length = 250)
-    inquiry_email = models.CharField(max_length = 250)
-    names_in_email = models.CharField(max_length = 250)
-    site_email = models.CharField(max_length = 250)
-    copyright_text = models.CharField(max_length = 250)
+    site_title = models.CharField(max_length = 250, null = True)
+    inquiry_email = models.CharField(max_length = 250, null = True)
+    names_in_email = models.CharField(max_length = 250, null = True)
+    site_email = models.CharField(max_length = 250, null = True)
+    copyright_text = models.CharField(max_length = 250, null = True)
 
     class Meta:
         db_table = 'setting_site'
 
 class Contact(models.Model):
-    email = models.CharField(max_length = 250)
-    phone_number = models.IntegerField()
-    contact_map = models.CharField(max_length = 250)
-    contact_address = models.CharField(max_length = 250)
+    email = models.CharField(max_length = 250, null = True)
+    phone_number = models.IntegerField(null = True)
+    contact_map = models.CharField(max_length = 250, null = True)
+    contact_address = models.CharField(max_length = 250, null = True)
 
     class Meta:
         db_table = 'setting_contact'
 
 class Social(models.Model):
-    facebook_url = models.CharField(max_length = 250)
-    twitter_url = models.CharField(max_length = 250)
-    instagram_url = models.CharField(max_length = 250)
-    youtube_url = models.CharField(max_length = 250)
+    facebook_url = models.CharField(max_length = 250, null = True)
+    twitter_url = models.CharField(max_length = 250, null = True)
+    instagram_url = models.CharField(max_length = 250, null = True)
+    youtube_url = models.CharField(max_length = 250, null = True)
 
     class Meta:
         db_table = 'setting_social'
 
 class Reading(models.Model):
-    date_time_format = models.DateTimeField( auto_now = False, auto_now_add = False)
-    date_formate = models.DateTimeField( auto_now = False, auto_now_add = False)
-    records_per_page = models.IntegerField(default = 0)
-    record_views = models.IntegerField(default = 0)
+    date_time_format = models.CharField(max_length = 250, default = "DD/MM/YYYY HH:MM:SS A", null = True)
+    date_format = models.CharField(max_length = 250, default = "DD/MM/YYYY HH:MM:SS A", null = True)
+    records_per_page = models.IntegerField(default = 0, null = True)
+    record_views = models.IntegerField(default = 0, null = True)
 
     class Meta:
         db_table = 'setting_reading'
 
 class Email(models.Model):
-    host = models.CharField(max_length = 250)
-    time_out = models.CharField(max_length = 250)
-    client= models.FloatField()
-    port = models.FloatField()
-    password = models.CharField(max_length = 50)
-    username = models.CharField(max_length = 250)
+    host = models.CharField(max_length = 250, null = True)
+    time_out = models.CharField(max_length = 250, null = True)
+    client= models.FloatField(null = True)
+    port = models.FloatField(null = True)
+    password = models.CharField(max_length = 50, null = True)
+    username = models.CharField(max_length = 250, null = True)
 
     class Meta:
         db_table = 'setting_email'
 
 class Bank(models.Model):
-    bank_name = models.CharField(max_length = 250)
-    bank_account=  models.FloatField()
-    bank_swift_code = models.FloatField()
-    account_holder_name= models.CharField(max_length = 250)
+    bank_name = models.CharField(max_length = 250, null = True)
+    bank_account=  models.FloatField(null = True)
+    bank_swift_code = models.FloatField(null = True)
+    account_holder_name= models.CharField(max_length = 250, null = True)
 
     class Meta:
         db_table = 'setting_bank'
