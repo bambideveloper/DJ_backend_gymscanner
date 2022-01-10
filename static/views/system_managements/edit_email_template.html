@@ -1,0 +1,52 @@
+
+{% extends "main/index.html" %}
+
+{% block content %}
+    <div id="page_content_inner">
+        {% if message %}<h3 style="color:red">{{ message }}</h3>{% endif %}
+        <form action="{%url 'system_management:event_edit_email' sel_email.id%}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="uk-grid">
+                <div class="uk-width-1-2 uk-margin-medium-bottom">
+                    <label>Name</label>
+                    <input type="text" class="md-input label-fixed md-input-custom" placeholder="Name" name="name" value="{{ sel_email.name }}">
+                </div>
+                <div class="uk-width-1-2 uk-margin-medium-bottom">
+                    <label>Subject <strong class="uk-text-danger">*</strong></label>
+                    <input type="text" class="md-input label-fixed md-input-custom" placeholder="Subject" name="subject" value="{{ sel_email.subject }}">
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Actions</label>
+                    <div class="selectize_custom">
+                        <select data-md-selectize data-md-selectize-bottom data-placeholder="Select Action...">
+                            <option>Action 1</option>
+                            <option>Action 2</option>
+                            <option>Action 3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Constants</label>
+                    <div class="selectize_custom">
+                        <select data-md-selectize data-md-selectize-bottom data-placeholder="Select Constant...">
+                            <option>Constant 1</option>
+                            <option>Constant 2</option>
+                            <option>Constant 3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <button type="button" class="md-btn md-btn-primary uk-margin-medium-top">Insert Variable</button>
+                </div>
+                <div class="uk-width-1-1 uk-margin-medium-bottom">
+                    <label>Email Body <strong class="uk-text-danger">*</strong></label>
+                    <textarea class="md-input md-input-custom label-fixed" data-uk-htmleditor="{ maxsplitsize:1220, codemirror : { mode: 'text/html' } }" name="body">{{ sel_email.body }}</textarea>
+                </div>
+            </div>
+            <div class="uk-float-right">
+                <button type="submit" class="md-btn md-btn-primary">Submit</button>
+                <button type="reset" class="md-btn">Reset</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
