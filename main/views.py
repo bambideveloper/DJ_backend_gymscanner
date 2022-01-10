@@ -15,7 +15,7 @@ from orders.models import *
 def index(request):
     context={}
     context["gym_count"] = Gyms.objects.all().count()
-    context['user_count'] = Users.objects.all().count()
+    context['user_count'] = Users.objects.filter(businesses__business_type = 0).count()
     context['trainer_count'] = Trainers.objects.all().count()
     context['order_count'] = Orders.objects.all().count()
     context["title"] = "Dashboard"

@@ -149,7 +149,6 @@ def event_update_trainer(request, pk):
     context['sel_trainer'] = Trainers.objects.get(id = pk)
     context['trainer_languages'] = context['sel_trainer'].business.user.language.all()
     context['trainer_categories'] = context['sel_trainer'].category.all()
-
     context["title"] = "Edit Trainer"
     context["trainer_section"] = "current_section"
     context["trainer_index"] = "act_item"

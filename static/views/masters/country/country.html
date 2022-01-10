@@ -1,95 +1,90 @@
 {% extends "main/index.html" %}
 
 {% block content %}
-   <div id="page_content_inner">
-
-            <div class="uk-grid uk-margin-bottom table-filter">
-                <div class="uk-width-medium-1-6">
-                    <select data-md-selectize data-md-selectize-bottom data-placeholder="Records Per Page">
-                        <option>10</option>
-                        <option>25</option>
-                        <option>50</option>
-                    </select>
-                </div>
-                <div class="uk-width-medium-1-6">
-                    <input type="text" class="md-input md-input-custom" placeholder="Filter by Name" name="filter_name">
-                </div>
-                <div class="uk-width-medium-1-6">
-                    <button type="submit" class="md-btn md-btn-primary uk-margin-small-top">Submit</button>
-                </div>
-                <div class="uk-width-medium-3-6">
-                    <a href="{% url 'master:add_country' %}" class="md-btn md-btn-dark uk-float-right uk-float-right">Add Country</a>
-                </div>
+    <div id="page_content_inner">
+        <div class="uk-grid uk-margin-bottom table-filter">
+            <div class="uk-width-medium-1-6">
+                <select data-md-selectize data-md-selectize-bottom data-placeholder="Records Per Page">
+                    <option>10</option>
+                    <option>25</option>
+                    <option>50</option>
+                </select>
             </div>
-            
-            <div class="md-card uk-margin-medium-bottom">
-                <div class="md-card-content uk-padding-remove">
-                    <table class="uk-table uk-table-striped uk-table-nowrap table_check">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Country Code</th>
-                                <th>Phone Code</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {%for i in country%}
-                            <tr>
-                                <td>{{i.name}}</td>
-                                <td>{{i.phonecode}}</td>
-                                <td>{{i.countrycode}}</td>
-                                    <td>
-                                    <span class="uk-badge uk-badge-{{ i.status|yesno:'success,danger' }}">{{ i.status|yesno:"Activated,Deactivated" }}</span><br>
-                                    <span class="uk-badge uk-badge-{{ i.status_ads|yesno:'success,danger' }}">{{ i.status_ads|yesno:"Ads Activated,Ads Deactivated" }}</span><br>
-                                </td>
-                                <td>
-                                    <div class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
-                                        <button class="md-btn md-btn-primary md-btn-small">Action<i class="material-icons">&#xE313;</i></button>
-                                        <div class="uk-dropdown">
-                                            <ul class="uk-nav uk-nav-dropdown">
-                                                <li>
-                                                    <a href="{% url 'masters:up_con_st' i.id %}" class="uk-text-{{ i.status|yesno:'warning,success' }}">
-                                                        <i class="material-icons uk-text-warning {{ i.status|yesno:'icon-bold-timer-pause,icon-ellipse-green' }}"></i>
-                                                        <span>{{ i.status|yesno:"Deactivate,Activate" }}</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="{% url 'masters:up_con_stad' i.id %}" class="uk-text-{{ i.status_ads|yesno:'warning,success' }}">
-                                                        <i class="material-icons uk-text-success {{ i.status_ads|yesno:'icon-bold-timer-pause,icon-ellipse-green' }}"></i>
-                                                        <span>{{ i.status_ads|yesno:"Deactivate Ads,Activate Ads" }}</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        {%endfor%}
-
-                        </tbody>
-                    </table>
-                </div>
+            <div class="uk-width-medium-1-6">
+                <input type="text" class="md-input md-input-custom" placeholder="Filter by Name" name="filter_name">
             </div>
-
-            <div class="uk-flex uk-flex-between">
-                <div>
-                    <span>Showing 1 to 10 of 177 entries</span>
-                </div>
-                <div>
-                    <ul class="uk-pagination">
-                        <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
-                        <li class="uk-active"><span>1</span></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><span>&hellip;</span></li>
-                        <li><a href="#">10</a></li>
-                        <li><a href="#"><i class="uk-icon-angle-double-right"></i></a></li>
-                    </ul>
-                </div>
+            <div class="uk-width-medium-1-6">
+                <button type="submit" class="md-btn md-btn-primary uk-margin-small-top">Reset</button>
             </div>
-
+            <div class="uk-width-medium-3-6">
+                <a href="{% url 'master:event_add_country' %}" class="md-btn md-btn-dark uk-float-right uk-float-right">Add Country</a>
+            </div>
         </div>
+        <div class="md-card uk-margin-medium-bottom">
+            <div class="md-card-content uk-padding-remove">
+                <table class="uk-table uk-table-striped uk-table-nowrap table_check">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Country Code</th>
+                            <th>Phone Code</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {%for country in country_list%}
+                        <tr>
+                            <td>{{country.name}}</td>
+                            <td>{{country.phone_code}}</td>
+                            <td>{{country.country_code}}</td>
+                            <td>
+                                <span class="uk-badge uk-badge-{{ country.is_active|yesno:'success,danger' }}">{{ country.is_active|yesno:"Activated,Deactivated" }}</span><br>
+                                <span class="uk-badge uk-badge-{{ country.is_ads|yesno:'success,danger' }}">{{ country.is_ads|yesno:"Ads Activated,Ads Deactivated" }}</span><br>
+                            </td>
+                            <td>
+                                <div class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
+                                    <button class="md-btn md-btn-primary md-btn-small">Action<i class="material-icons">&#xE313;</i></button>
+                                    <div class="uk-dropdown">
+                                        <ul class="uk-nav uk-nav-dropdown">
+                                            <li>
+                                                <a href="{% url 'master:event_update_country_status' country.id %}" class="uk-text-{{ country.is_active|yesno:'warning,success' }}">
+                                                    <i class="material-icons uk-text-warning {{ country.is_active|yesno:'icon-bold-timer-pause,icon-ellipse-green' }}"></i>
+                                                    <span>{{ country.is_active|yesno:"Deactivate,Activate" }}</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'master:event_update_country_ads' country.id %}" class="uk-text-{{ country.is_ads|yesno:'warning,success' }}">
+                                                    <i class="material-icons uk-text-success {{ country.is_ads|yesno:'icon-bold-timer-pause,icon-ellipse-green' }}"></i>
+                                                    <span>{{ country.is_ads|yesno:"Deactivate Ads,Activate Ads" }}</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {%endfor%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="uk-flex uk-flex-between">
+            <div>
+                <span>Showing 1 to 10 of 177 entries</span>
+            </div>
+            <div>
+                <ul class="uk-pagination">
+                    <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
+                    <li class="uk-active"><span>1</span></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><span>&hellip;</span></li>
+                    <li><a href="#">10</a></li>
+                    <li><a href="#"><i class="uk-icon-angle-double-right"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
