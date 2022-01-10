@@ -48,7 +48,7 @@
                     <div class="selectize_custom">
                         <select name="categories" data-md-selectize data-md-selectize-bottom data-placeholder="Categories..." multiple>
                         {%for category in categories%}
-                            <option {% if category in trainer_category %} selected {% endif %} value="{{category.id}}">{{category.name}}</option>
+                            <option {% if category in trainer_categories %} selected {% endif %} value="{{category.id}}">{{category.name}}</option>
                         {%endfor%}
                         </select>
                     </div>
