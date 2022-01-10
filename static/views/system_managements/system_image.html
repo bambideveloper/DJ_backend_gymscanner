@@ -1,81 +1,72 @@
 {% extends "main/index.html" %}
-
+{% load static %}
 {% block content %}
     <div id="page_content_inner">
-
-            <div class="uk-grid uk-margin-bottom table-filter">
-                <div class="uk-width-medium-1-6">
-                    <select data-md-selectize data-md-selectize-bottom data-placeholder="Records Per Page">
-                        <option>10</option>
-                        <option>25</option>
-                        <option>50</option>
-                    </select>
-                </div>
-                <div class="uk-width-medium-1-6">
-                    <input type="text" class="md-input md-input-custom" placeholder="Filter by Name" name="filter_name">
-                </div>
-                <div class="uk-width-medium-4-6">
-                    <button type="button" data-uk-modal="{target:'#addModal'}" class="md-btn md-btn-dark uk-float-right uk-margin-small-top">Add Image</button>
-                </div>
+        <div class="uk-grid uk-margin-bottom table-filter">
+            <div class="uk-width-medium-1-6">
+                <select data-md-selectize data-md-selectize-bottom data-placeholder="Records Per Page">
+                    <option>10</option>
+                    <option>25</option>
+                    <option>50</option>
+                </select>
             </div>
-            
-            <div class="md-card uk-margin-medium-bottom">
-                <div class="md-card-content uk-padding-remove">
-                    <table class="uk-table uk-table-striped uk-table-nowrap table_check">
-                        <thead>
-                            <tr>
-                                <th>Pages</th>
-                                <th>Image</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            <tr>
-                                <td>Page title</td>
-                                <td>
-                                    <a href="assets/img/gallery/image01.jpg" data-uk-lightbox>
-                                        <img src="assets/img/gallery/image01.jpg" width="60px">
-                                    </a>
-                                </td>
-                                <td>
-                                    <button type="button" class="md-btn md-btn-primary md-btn-small" data-uk-modal="{target:'#editModal'}">Edit</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Page title</td>
-                                <td>
-                                    <a href="assets/img/gallery/image01.jpg" data-uk-lightbox>
-                                        <img src="assets/img/gallery/image01.jpg" width="60px">
-                                    </a>
-                                </td>
-                                <td>
-                                    <button type="button" class="md-btn md-btn-primary md-btn-small" data-uk-modal="{target:'#editModal'}">Edit</button>
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
+            <div class="uk-width-medium-1-6">
+                <input type="text" class="md-input md-input-custom" placeholder="Filter by Name" name="filter_name">
             </div>
-
-            <div class="uk-flex uk-flex-between">
-                <div>
-                    <span>Showing 1 to 10 of 177 entries</span>
-                </div>
-                <div>
-                    <ul class="uk-pagination">
-                        <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
-                        <li class="uk-active"><span>1</span></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><span>&hellip;</span></li>
-                        <li><a href="#">10</a></li>
-                        <li><a href="#"><i class="uk-icon-angle-double-right"></i></a></li>
-                    </ul>
-                </div>
+            <div class="uk-width-medium-4-6">
+                <button type="button" data-uk-modal="{target:'#addModal'}" class="md-btn md-btn-dark uk-float-right uk-margin-small-top">Add Image</button>
             </div>
-
         </div>
+        <div class="md-card uk-margin-medium-bottom">
+            <div class="md-card-content uk-padding-remove">
+                <table class="uk-table uk-table-striped uk-table-nowrap table_check">
+                    <thead>
+                        <tr>
+                            <th>Pages</th>
+                            <th>Image</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for image in system_images%}
+                        <tr>
+                            <td>{{ image.page }}</td>
+                            <td>
+                            {% if image.log %}
+                                <a href="{{ image.logo.url }}" data-uk-lightbox>
+                                    <img src="{{ image.logo.url }}" width="60px">
+                                </a>
+                            {% else %}
+                                <a href="{% static 'assets/img/gallery/image01.jpg' %}" data-uk-lightbox>
+                                    <img src="{% static 'assets/img/gallery/image01.jpg' %}" width="60px">
+                                </a>
+                            {% endif %}
+                            </td>
+                            <td>
+                                <button type="button" class="md-btn md-btn-primary md-btn-small" data-uk-modal="{target:'#editModal'}">Edit</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="uk-flex uk-flex-between">
+            <div>
+                <span>Showing 1 to 10 of 177 entries</span>
+            </div>
+            <div>
+                <ul class="uk-pagination">
+                    <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
+                    <li class="uk-active"><span>1</span></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><span>&hellip;</span></li>
+                    <li><a href="#">10</a></li>
+                    <li><a href="#"><i class="uk-icon-angle-double-right"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
