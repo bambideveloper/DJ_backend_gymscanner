@@ -47,9 +47,9 @@
                     <label>Categories <strong class="uk-text-danger">*</strong></label>
                     <div class="selectize_custom">
                         <select name="categories" data-md-selectize data-md-selectize-bottom data-placeholder="Categories..." multiple>
-                        {%for category in categories%}
-                            <option {% if category in trainer_categories %} selected {% endif %} value="{{category.id}}">{{category.name}}</option>
-                        {%endfor%}
+                        {% for category in categories %}
+                            <option {% if category in sel_trainer.category.all %} selected {% endif %} value="{{category.id}}">{{category.name}}</option>
+                        {% endfor %}
                         </select>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                     <div class="selectize_custom">
                         <select name="languages" data-md-selectize data-md-selectize-bottom data-placeholder="Languages Spoken..." multiple>
                         {%for language in languages%}
-                            <option {% if language in trainer_languages %} selected {% endif %} value="{{language.id}}">{{language.title}}</option>
+                            <option {% if language in sel_trainer.business.user.language.all %} selected {% endif %} value="{{language.id}}">{{language.title}}</option>
                         {%endfor%}
                         </select>
                     </div>

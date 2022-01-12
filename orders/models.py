@@ -1,16 +1,16 @@
 from django.db import models
 
 # Create your models here.
-STATUS_CHOICES_ACTION = [
-    ('d', 'Confirm Order'),
-    ('p', 'Delete'),
-    ('v','View')
+# STATUS_CHOICES_ACTION = [
+#     ('d', 'Confirm Order'),
+#     ('p', 'Delete'),
+#     ('v','View')
     
-]
-STATUS_CHOICE = [
-    ('d', 'Order confirmed'),
-    ('p', 'Not confirmed'), 
-]
+# ]
+# STATUS_CHOICE = [
+#     ('d', 'Order confirmed'),
+#     ('p', 'Not confirmed'), 
+# ]
 
 class Orders(models.Model):
     gym_name = models.CharField('Gym User Name', max_length = 250)
@@ -27,8 +27,8 @@ class Orders(models.Model):
     admin_commission = models.FloatField('Admin Commission', default = 0)
     duration = models.IntegerField('Plan Duration')
     
-    status=models.CharField(max_length = 1, choices = STATUS_CHOICE)    
-    actions = models.CharField(max_length = 1, choices = STATUS_CHOICES_ACTION)
+    status=models.BooleanField("Status", default = True)    
+    # actions = models.CharField(max_length = 1, choices = STATUS_CHOICES_ACTION)
 
     class Meta:
         db_table = 'orders'
