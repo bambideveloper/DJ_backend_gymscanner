@@ -24,7 +24,15 @@ SECRET_KEY = 'django-insecure-hz5#^50ar7*=pdky#t*%_c=@^662sgn@#)-lrzg+nt3-bsy&(m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+DEFAULT_FROM_EMAIL = ""
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_PASSWORD = ""
+EMAIL_HOST_USER = ""
+EMAIL_USE_TLS = True
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+EMAIL_PORT = 587
+ADMIN_EMAIL_LIST = [""]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -84,10 +92,23 @@ WSGI_APPLICATION = 'backend_gymscanner.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': 'db.sqlite3',
+#     }
+# }
+
+# AWS RDS
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'backend_gym',
+        'USER': 'backend_admin',
+        'trusted_connection': 'yes',
+        'PASSWORD': 'com.gymscanner.backend.db',
+        'HOST': 'backenddatabase-1.cvh9aal6sdwe.us-east-2.rds.amazonaws.com',  # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
     }
 }
 
