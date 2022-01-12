@@ -3,7 +3,9 @@ from language.models import Language
 from masters.models import Feature
 from users.models import Businesses
 from masters.models import Banner
-
+from django.utils import timezone
+from uuid import uuid4
+import os
 # Create your models here.
 DAY_CHOICES = (
     ("Monday", "Monday"),
@@ -15,11 +17,53 @@ DAY_CHOICES = (
     ("Sunday", "Sunday"),
 )
 
+def gym_logo_path(instance, filename):
+    upload_to = 'gyms/logo' 
+    ext = filename.split('.')[-1]
+    # get filename
+    if instance.pk:
+        filename = '{}.{}'.format(instance.business.user.username, ext)
+    else:
+        # set filename as random string
+        filename = '{}.{}'.format(uuid4().hex, ext)
+    # return the whole path to the file
+    return os.path.join(upload_to, filename)
+
+def gym_video_path(instance, filename):
+    upload_to = 'gyms/video' 
+    ext = filename.split('.')[-1]
+    # get filename
+    if instance.pk:
+        filename = '{}.{}'.format(instance.business.user.username, ext)
+    else:
+        # set filename as random string
+        filename = '{}.{}'.format(uuid4().hex, ext)
+    # return the whole path to the file
+    return os.path.join(upload_to, filename)
+
+
+def category_logo_path(instance, filename):
+    upload_to = 'gyms/category' 
+    ext = filename.split('.')[-1]
+    # get filename
+    if instance.pk:
+        filename = '{}.{}'.format(instance.name, ext)
+    else:
+        # set filename as random string
+        filename = '{}.{}'.format(uuid4().hex, ext)
+    # return the whole path to the file
+    return os.path.join(upload_to, filename)
+
 class Gym_Category(models.Model):
     name = models.CharField('Category Name', unique = True, max_length = 250)
     language = models.ForeignKey(Language, on_delete = models.CASCADE, null = True)
-    image = models.ImageField(upload_to = 'gyms/category', default = 'default/gym_category.jpg')
-
+    
+    status = models.BooleanField(default = True)
+    created_at = models.DateTimeField(default = timezone.now)
+    image = models.ImageField(
+        upload_to = category_logo_path, 
+        default = 'default/gym_category.jpg'
+    )
     class Meta:
         db_table = 'gym_category'
 
@@ -61,12 +105,12 @@ class Gyms(models.Model):
     longitude = models.CharField("Longitude", max_length = 250, null = True)
 
     logo = models.ImageField(
-        upload_to = 'gyms/logo',
+        upload_to = gym_logo_path,
         default = 'default/gym_logo.jpg',
     )
 
     video = models.FileField(
-        upload_to = 'gyms/video',
+        upload_to = gym_video_path,
         default = 'default/gym_video.jpg'
     )
 

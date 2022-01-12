@@ -1,0 +1,235 @@
+{% extends "main/index.html" %}
+
+{% block content %}
+    <div id="page_content_inner">
+        {% if message %}<h3 style="color:red">{{ message }}</h3>{% endif %}
+        <form action="{%url 'gym:event_edit_gym' sel_gym.id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="uk-grid">
+                <div class="uk-width-1-6">
+                {% if sel_gym.logo %}
+                    <input type="file" class="dropify_gym_profile_photo" name="logo" data-default-file="{{sel_gym.logo.url}}" value="{{sel_gym.logo.url}}" >
+                {% else %}
+                    <input type="file" class="dropify_gym_profile_photo" name="logo">
+                {% endif %}
+                </div>
+                <div class="uk-width-4-6">
+                    <input type="file" class="dropify_gym_banner_image" name="banner" data-default-file="{{sel_gym.banner.url}}" value="{{sel_gym.banner.url}}" >
+                </div>
+                <div class="uk-width-1-6">
+                {% if sel_gym.video %}
+                    <input type="file" class="dropify_gym_video" name="video" data-default-file="{{sel_gym.video.url}}" value="{{sel_gym.video.url}}" >
+                {% else %}
+                    <input type="file" class="dropify_gym_video" name="video">
+                {% endif %}
+                </div>
+            </div>
+            <div class="uk-grid">
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Gym Full Name <strong class="uk-text-danger">*</strong></label>
+                    <input type="text" class="md-input label-fixed md-input-custom" placeholder="Gym Full Name" name="fullname" value="{{sel_gym.business.user.fullname}}" required>
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Gym Username <strong class="uk-text-danger">*</strong></label>
+                    <input type="text" class="md-input label-fixed md-input-custom" placeholder="Gym Username" name="username" value="{{sel_gym.business.user.username}}" required>
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Email <strong class="uk-text-danger">*</strong></label>
+                    <input type="email" class="md-input label-fixed md-input-custom" placeholder="Email" name="email" value="{{sel_gym.business.user.email}}" required>
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Website Url <strong class="uk-text-danger">*</strong></label>
+                    <input type="text" class="md-input label-fixed md-input-custom" placeholder="Website Url"  name="website" value="{{sel_gym.business.website}}" required>
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Phone Number <strong class="uk-text-danger">*</strong></label>
+                    <input type="tel" class="md-input label-fixed md-input-custom" placeholder="Phone Number" name="phone" value="{{sel_gym.business.user.phone}}" required>
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Features <strong class="uk-text-danger">*</strong></label>
+                    <div class="selectize_custom">
+                        <select name="features" data-md-selectize data-md-selectize-bottom data-placeholder="Features..." multiple>
+                        {% for feature in features %}
+                            <option  {% if   feature in sel_gym.feature.all %} selected {% endif %} value="{{feature.id}}">{{feature.name}}</option>
+                        {%endfor%}
+                        </select>
+                    </div>
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Vendor Id <strong class="uk-text-danger">*</strong></label>
+                    <input type="text" class="md-input label-fixed md-input-custom" placeholder="Vendor Id" name="vendor" value="{{sel_gym.business.vendor}}" required>
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Categories <strong class="uk-text-danger">*</strong></label>
+                    <div class="selectize_custom">
+                        <select name="categories" data-md-selectize data-md-selectize-bottom data-placeholder="Categories..." multiple>
+                        {% for category in categories %}
+                            <option {% if category in sel_gym.category.all %} selected {% endif  %} value="{{category.id}}">{{category.name}}</option>
+                        {%endfor%}
+                        </select>
+                    </div>
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Country <strong class="uk-text-danger">*</strong></label>
+                    <div class="selectize_custom">
+                        <select name="country" data-md-selectize data-md-selectize-bottom data-placeholder="Country...">
+                        {% for country in country_list %}
+                            <option {% if country.name == sel_gym.business.user.country %} selected {% endif  %} value="{{country.name}}">{{country.name}}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Latitude <strong class="uk-text-danger">*</strong></label>
+                    <input type="text" class="md-input label-fixed md-input-custom" placeholder="Latitude" name="latitude" value="{{sel_gym.latitude}}" required>
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Longitude <strong class="uk-text-danger">*</strong></label>
+                    <input type="text" class="md-input label-fixed md-input-custom" placeholder="Longitude" name="longitude" value="{{sel_gym.longitude}}" required>
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Address <strong class="uk-text-danger">*</strong></label>
+                    <input type="text" class="md-input label-fixed md-input-custom" placeholder="Address" name="address" value="{{sel_gym.business.user.address}}" required>
+                </div>
+                <div class="uk-width-1-3 uk-margin-medium-bottom">
+                    <label>Individual Commission</label>
+                    <input type="text" class="md-input label-fixed md-input-custom" placeholder="Individual Commission" name="commission" value="{{sel_gym.business.commission}}" required>
+                </div>
+                <div class="uk-width-2-3 uk-margin-medium-bottom">
+                    <label>Youtube Video</label>
+                    <input type="text" class="md-input label-fixed md-input-custom" placeholder='Enter only youtube video id Like-"X4aKpjO2Nk4"' name="youtube" value="{{sel_gym.business.youtube}}" required>
+                </div>
+                <div class="uk-width-3-3 uk-margin-medium-bottom">
+                    <label>About Gym <strong class="uk-text-danger">*</strong></label>
+                    <textarea class="md-input label-fixed md-input-custom" placeholder="About Gym" name="about" rows="5" required>{{sel_gym.business.user.about}} </textarea>
+                </div>
+            </div>
+            <div class="uk-margin-large-bottom">
+                <div class="uk-width-1-1 uk-bg-dark uk-padding-1 uk-margin-bottom">
+                    <h2 class="uk-text-white uk-margin-remove"><i class="material-icons uk-text-white uk-padding-half icon-bold-clock"></i> Gym Timings</h2>
+                </div>
+                <div class="uk-grid">
+                    <div class="uk-width-1-3">
+                        <h4>Days</h4>
+                        <div class="uk-flex uk-flex-between uk-bg-white uk-padding-half uk-border-dark uk-radius-5 uk-align-center">
+                            <div>Monday</div>
+                            <div>
+                                <input type="checkbox" class="monday" data-switchery {{gym_time_day.monday}}>
+                            </div>
+                        </div>
+                        <div class="uk-flex uk-flex-between uk-bg-white uk-padding-half uk-border-dark uk-radius-5 uk-align-center">
+                            <div>Tuesday</div>
+                            <div>
+                                <input type="checkbox" class="tuesday" data-switchery {{gym_time_day.tuesday}}>
+                            </div>
+                        </div>
+                        <div class="uk-flex uk-flex-between uk-bg-white uk-padding-half uk-border-dark uk-radius-5 uk-align-center">
+                            <div>Wednesday</div>
+                            <div>
+                                <input type="checkbox" class="wednesday" data-switchery {{gym_time_day.wednesday}}>
+                            </div>
+                        </div>
+                        <div class="uk-flex uk-flex-between uk-bg-white uk-padding-half uk-border-dark uk-radius-5 uk-align-center">
+                            <div>Thursday</div>
+                            <div>
+                                <input type="checkbox" class="thursday" data-switchery {{gym_time_day.thursday}}>
+                            </div>
+                        </div>
+                        <div class="uk-flex uk-flex-between uk-bg-white uk-padding-half uk-border-dark uk-radius-5 uk-align-center">
+                            <div>Friday</div>
+                            <div>
+                                <input type="checkbox" class="friday" data-switchery {{gym_time_day.friday}}>
+                            </div>
+                        </div>
+                        <div class="uk-flex uk-flex-between uk-bg-white uk-padding-half uk-border-dark uk-radius-5 uk-align-center">
+                            <div>Saturday</div>
+                            <div>
+                                <input type="checkbox" class="saturday" data-switchery {{gym_time_day.saturday}}>
+                            </div>
+                        </div>
+                        <div class="uk-flex uk-flex-between uk-bg-white uk-padding-half uk-border-dark uk-radius-5 uk-align-center">
+                            <div>Sunday</div>
+                            <div>
+                                <input type="checkbox" class="sunday" data-switchery {{gym_time_day.sunday}}>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-3">
+                        <h4>Opening Time</h4>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="monday_start md-input md-input-custom" data-uk-timepicker name="monday_start" value="{{gym_time.monday.open_time|date:"H:i"}}" {%if gym_time_day.monday != "checked"%} disabled {%endif%} required>
+                        </div>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="tuesday_start md-input md-input-custom" data-uk-timepicker name="tuesday_start" value="{{gym_time.tuesday.open_time|date:"H:i"}}" {%if gym_time_day.tuesday != "checked"%} disabled {%endif%} >
+                        </div>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="wednesday_start md-input md-input-custom" data-uk-timepicker  name="wednesday_start" value="{{gym_time.wednesday.open_time|date:"H:i"}}" {%if gym_time_day.wednesday != "checked"%} disabled {%endif%}  >
+                        </div>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="thursday_start md-input md-input-custom" data-uk-timepicker  name="thursday_start" value="{{gym_time.thursday.open_time|date:"H:i"}}" {%if gym_time_day.thursday != "checked"%} disabled {%endif%}  >
+                        </div>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="friday_start md-input md-input-custom" data-uk-timepicker name="friday_start" value="{{gym_time.friday.open_time|date:"H:i"}}" {%if gym_time_day.friday != "checked"%} disabled {%endif%}  >
+                        </div>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="saturday_start md-input md-input-custom" data-uk-timepicker name="saturday_start" value="{{gym_time.saturday.open_time|date:"H:i"}}" {%if gym_time_day.saturday != "checked"%} disabled {%endif%}  >
+                        </div>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="sunday_start md-input md-input-custom" data-uk-timepicker value="{{gym_time.sunday.open_time|date:"H:i"}}" {%if gym_time_day.sunday != "checked"%} disabled {%endif%}  name="sun_t" >
+                        </div>
+                    </div>
+                    <div class="uk-width-1-3">
+                        <h4>Closing Time</h4>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="monday_end md-input md-input-custom" data-uk-timepicker value="{{gym_time.monday.close_time|date:"H:i"}}" {%if gym_time_day.monday != "checked"%} disabled {%endif%} required name="monday_end" >
+                        </div>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="tuesday_end md-input md-input-custom" data-uk-timepicker value="{{gym_time.tuesday.close_time|date:"H:i"}}" {%if gym_time_day.tuesday != "checked"%} disabled {%endif%} name="tuesday_end" >
+                        </div>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="wednesday_end md-input md-input-custom" data-uk-timepicker value="{{gym_time.wednesday.close_time|date:"H:i"}}" {%if gym_time_day.wednesday != "checked"%} disabled {%endif%} name="wednesday_end" >
+                        </div>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="thursday_end md-input md-input-custom" data-uk-timepicker value="{{gym_time.thursday.close_time|date:"H:i"}}" {%if gym_time_day.thursday != "checked"%} disabled {%endif%} name="thursday_end" >
+                        </div>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="friday_end md-input md-input-custom" data-uk-timepicker value="{{gym_time.friday.close_time|date:"H:i"}}" {%if gym_time_day.friday != "checked"%} disabled {%endif%} name="friday_end" >
+                        </div>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="saturday_end md-input md-input-custom" data-uk-timepicker value="{{gym_time.saturday.close_time|date:"H:i"}}" {%if gym_time_day.saturday != "checked"%} disabled {%endif%} name="saturday_end" >
+                        </div>
+                        <div class="uk-padding-1-bottom uk-margin-remove">
+                            <input type="text" class="sunday_end md-input md-input-custom" data-uk-timepicker value="{{gym_time.sunday.close_time|date:"H:i"}}" {%if gym_time_day.sunday != "checked"%} disabled {%endif%} name="sunday_end" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-bg-dark uk-padding-1 uk-margin-bottom">
+                <h2 class="uk-text-white"><i class="material-icons uk-text-white uk-padding-half">account_balance</i> Bank Details</h2>
+                <div class="uk-grid">
+                    <div class="uk-width-1-2 uk-margin-medium-bottom">
+                        <label class="uk-text-white">Bank Name <strong class="uk-text-danger">*</strong></label>
+                        <input type="text" class="md-input label-fixed md-input-custom" placeholder="Bank Name" name="bank_name" value="{{sel_gym.gym_bank.name}}" required>
+                    </div>
+                    <div class="uk-width-1-2 uk-margin-medium-bottom">
+                        <label class="uk-text-white">Bank Account Number <strong class="uk-text-danger">*</strong></label>
+                        <input type="number" class="md-input label-fixed md-input-custom" placeholder="Bank Account Number" name="bank_account" value="{{sel_gym.gym_bank.account_number}}" required>
+                    </div>
+                    <div class="uk-width-1-2 uk-margin-medium-bottom">
+                        <label class="uk-text-white">Swift Code <strong class="uk-text-danger">*</strong></label>
+                        <input type="number" class="md-input label-fixed md-input-custom" placeholder="Swift Code" name="swift_code" value="{{sel_gym.gym_bank.swift_code}}" required>
+                    </div>
+                    <div class="uk-width-1-2 uk-margin-medium-bottom">
+                        <label class="uk-text-white">Account Holder Name <strong class="uk-text-danger">*</strong></label>
+                        <input type="text" class="md-input label-fixed md-input-custom" placeholder="Account Holder Name" name="holder_name" value="{{sel_gym.gym_bank.account_holder_name}}" required>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-float-right">
+                <button type="submit" class="md-btn md-btn-primary">Save</button>
+                <button type="reset" class="md-btn">Reset</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
+

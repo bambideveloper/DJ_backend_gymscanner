@@ -54,7 +54,7 @@ def event_insert_trainer(request):
 
         business = Businesses.objects.create(
             user = user,
-            business_type = 1, # if FALSE: Trainer else: Gym
+            business_type = 1, # 0: user 1: trainer 2: gym
             vendor = request.POST.get("vendor"),
             website = request.POST.get("website"),
             youtube = request.POST.get("youtube"),
@@ -147,8 +147,6 @@ def event_update_trainer(request, pk):
         context['message'] = message
 
     context['sel_trainer'] = Trainers.objects.get(id = pk)
-    context['trainer_languages'] = context['sel_trainer'].business.user.language.all()
-    context['trainer_categories'] = context['sel_trainer'].category.all()
     context["title"] = "Edit Trainer"
     context["trainer_section"] = "current_section"
     context["trainer_index"] = "act_item"
@@ -201,7 +199,6 @@ def event_edit_category(request, pk):
         sel_category.save()
         context["message"] = message
     context["sel_category"] = Trainer_Category.objects.get(id = pk)
-    print(context["sel_category"].language)
     context["title"] = "Edit Trainer Category"
     context["languages"] = Language.objects.all()
     context["trainer_section"] = "current_section"

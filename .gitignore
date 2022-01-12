@@ -131,3 +131,7 @@ dmypy.json
 # media
 /media
 !/media/default
+
+#migration
+
+**/migrations

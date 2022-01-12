@@ -3,23 +3,26 @@
 {% load static %}
 {% block content %}
     <div id="page_content_inner">
-        {% if message %}<h3 style="color:red">{{ message }}</h3>{% endif %}
-        <form action=" {%url 'demo_video:event_add_video' %}" method="POST" enctype="multipart/form-data">
+        <form action=" {%url 'demo_video:event_edit_video' sel_video.id %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="uk-grid">
                 <div class="uk-width-2-5">
                     <div class="uk-grid uk-flex-center">
                         <div class="uk-width-1-2">
+                        {% if sel_video.video %}
+                            <input type="file" class="dropify_gym_video"  name="video" accept="video/*" data-default-file="{{sel_video.video.url}}">
+                        {% else %}
                             <input type="file" class="dropify_gym_video"  name="video" accept="video/*">
+                        {% endif %}
                         </div>
                     </div>
                     <div class="uk-margin-medium-top uk-margin-large-bottom">
                         <label>Video Title <strong class="uk-text-danger">*</strong></label>
-                        <input type="text" class="md-input label-fixed md-input-custom"  placeholder="Video Title" name="title" required>
+                        <input type="text" class="md-input label-fixed md-input-custom"  placeholder="Video Title" value="{{sel_video.video_title}}" name="title" required>
                     </div>
                     <div class="uk-margin-medium-top uk-margin-large-bottom">
                         <label>Video Url <strong class="uk-text-danger">*</strong></label>
-                        <input type="url" class="md-input label-fixed md-input-custom"  placeholder="Video Url" name="url" required>
+                        <input type="url" class="md-input label-fixed md-input-custom"  placeholder="Video Url" value="{{sel_video.video_url}}" name="video_url" required>
                     </div>
                 </div>
                 <div class="uk-width-3-5">
@@ -28,7 +31,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="uk-float-left">
                 <button type="submit" class="md-btn md-btn-primary">Save</button>
                 <button type="reset" class="md-btn">Reset</button>

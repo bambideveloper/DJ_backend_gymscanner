@@ -43,9 +43,9 @@
                     <label>Categories <strong class="uk-text-danger">*</strong></label>
                     <div class="selectize_custom">
                         <select name="categories" data-md-selectize data-md-selectize-bottom data-placeholder="Categories..." multiple>
-                            {% for category in categories%}
+                        {% for category in categories%}
                             <option value="{{category.id}}">{{category.name}}</option>
-                            {%endfor%}
+                        {%endfor%}
                         </select>
                     </div>
                 </div>
@@ -53,9 +53,9 @@
                     <label>Languages Spoken <strong class="uk-text-danger">*</strong></label>
                     <div class="selectize_custom">
                         <select name="languages" data-md-selectize data-md-selectize-bottom data-placeholder="Languages Spoken..." multiple>
-                            {% for language in languages%}
+                        {% for language in languages%}
                             <option value="{{language.id}}">{{language.title}}</option>
-                            {%endfor%}
+                        {% endfor %}
                         </select>
                     </div>
                 </div>
@@ -67,9 +67,9 @@
                     <label>Country <strong class="uk-text-danger">*</strong></label>
                     <div class="selectize_custom">
                         <select name="country" data-md-selectize data-md-selectize-bottom data-placeholder="Country...">
-                            {% for contury in contury_list%}
+                        {% for contury in contury_list%}
                             <option value="{{contury.name}}">{{contury.name}}</option>
-                            {%endfor%}
+                        {% endfor %}
                         </select>
                     </div>
                 </div>
