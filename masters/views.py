@@ -1,8 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from masters.models import Country, Feature
 
 # Create your views here.
+@login_required
 def view_feature_icon(request):
     context = {}
     context['features'] = Feature.objects.all()
@@ -10,6 +12,8 @@ def view_feature_icon(request):
     context['master_section'] = "current_section"
     context['master_feature_icon'] = "act_item"
     return render(request, 'masters/features_icon/features_icon.html', context )
+
+@login_required
 def event_add_feature(request):
     context = {}
     if request.method == "POST":
@@ -25,6 +29,8 @@ def event_add_feature(request):
     context['master_section'] = "current_section"
     context['master_feature_icon'] = "act_item"
     return render(request, 'masters/features_icon/add_features_icon.html', context)
+
+@login_required
 def event_edit_feature(request, pk):
     context = {}
 
@@ -42,15 +48,20 @@ def event_edit_feature(request, pk):
     context['master_section'] = "current_section"
     context['master_feature_icon'] = "act_item"
     return render(request, 'masters/features_icon/edit_features_icon.html', context)
+
+@login_required
 def event_update_feature(request, pk):
     sel_feature = Feature.objects.get(id = pk)
     sel_feature.is_active = False if sel_feature.is_active else True
     sel_feature.save()
     return redirect('/masters/feature_icon')
+
+@login_required
 def event_delete_feature(request, pk):
     Feature.objects.get(id = pk).delete()
     return redirect('/masters/feature_icon')
 
+@login_required
 def view_country(request):
     context = {}
     context['country_list'] = Country.objects.all()
@@ -58,6 +69,8 @@ def view_country(request):
     context['master_section'] = "current_section"
     context['master_country'] = "act_item"
     return render(request, 'masters/country/country.html', context )
+
+@login_required
 def event_add_country(request):
     context = {}
     if request.method == "POST":
@@ -76,12 +89,14 @@ def event_add_country(request):
     context['master_country'] = "act_item"
     return render(request, 'masters/country/add_country.html', context)
 
+@login_required
 def event_update_country_status(request, pk):
     sel_country = Country.objects.get(id = pk)
     sel_country.is_active = False if sel_country.is_active else True
     sel_country.save()
     return redirect('/masters/country')
-
+    
+@login_required
 def event_update_country_ads(request, pk):
     sel_country = Country.objects.get(id = pk)
     sel_country.is_ads = False if sel_country.is_ads else True

@@ -1,7 +1,9 @@
 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from . models import *
 # Create your views here.
+@login_required
 def view_site(request):
     context = {}
     context['site'] = Site.objects.all().first()
@@ -10,6 +12,8 @@ def view_site(request):
     context['setting_section'] = "current_section"
     context['setting_site'] = "act_item"
     return render(request, 'setting/site.html', context )
+
+@login_required
 def event_add_site(request):
     context = {}
 
@@ -28,6 +32,8 @@ def event_add_site(request):
     context['setting_section'] = "current_section"
     context['setting_site'] = "act_item"
     return render(request, 'setting/site.html', context)
+
+@login_required
 def event_update_site(request, pk):
     context = {}
 
@@ -50,6 +56,7 @@ def event_update_site(request, pk):
     context['setting_site'] = "act_item"
     return render(request, 'setting/site.html', context)
 
+@login_required
 def view_contact(request):
     context = {}
     context['contact'] = Contact.objects.all().first()
@@ -57,6 +64,8 @@ def view_contact(request):
     context['setting_section'] = "current_section"
     context['setting_contact'] = "act_item"
     return render(request, 'setting/contact.html', context )
+
+@login_required
 def event_add_contact(request):
     context = {}
     if request.method == "POST":
@@ -73,6 +82,8 @@ def event_add_contact(request):
     context['setting_section'] = "current_section"
     context['setting_contact'] = "act_item"
     return render(request, 'setting/contact.html', context)
+
+@login_required
 def event_update_contact(request, pk):
     context = {}
     contact = Contact.objects.get(id = pk)

@@ -39,9 +39,11 @@ def admin_profile(request):
             request.user.email = request.POST.get("email")
         if request.FILES.get("auth_profile_photo"):
             request.user.employee.photo = request.FILES.get("auth_profile_photo")
-
         request.user.save()
         request.user.employee.save()
+
+        if request.FILES.get("auth_profile_photo"):
+            request.user.employee.photo = request.FILES.get("auth_profile_photo")
 
     context["title"] = "Dashboard"
     context["dashboard_section"] = "current_section"
@@ -84,6 +86,7 @@ def admin_login(request):
                 user = user[0]
                 if check_password(password, user.password):
                     login(request, user,)
+                    request.user.employee.save()
                     if request.GET.get('next', False):
                         return redirect(request.GET.get('next'))
                     else:

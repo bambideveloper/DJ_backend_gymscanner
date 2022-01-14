@@ -1,6 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from . models import *
 # Create your views here.
+@login_required
 def index(request):
     context = {}
     context['languages'] = Language.objects.all()
@@ -8,6 +10,8 @@ def index(request):
     context['language_section'] = "current_section"
     context['language_index'] = "act_item"
     return render(request, 'language/language.html', context )
+
+@login_required
 def view_setting(request):
     context = {}
     context['languages'] = Language.objects.all()
@@ -16,6 +20,7 @@ def view_setting(request):
     context['language_setting'] = "act_item"
     return render(request, 'language/setting.html', context )
 
+@login_required
 def event_add_language(request):
     context = {}
     if request.method == "POST":
@@ -34,6 +39,7 @@ def event_add_language(request):
     context['language_index'] = "act_item"
     return render(request, 'language/add_language.html', context)
 
+@login_required
 def event_update_language(request, pk):
     language = Language.objects.get(id = pk)
     language.is_active = False if language.is_active else True

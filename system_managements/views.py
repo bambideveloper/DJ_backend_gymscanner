@@ -1,6 +1,9 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from . models import *
 # Create your views here.
+
+@login_required
 def view_email_template(request):
     context = {}
     context['emails'] = Email_Template.objects.all() 
@@ -9,6 +12,7 @@ def view_email_template(request):
     context['system_management_email'] = "act_item"
     return render(request, 'system_managements/email_template.html', context )
 
+@login_required
 def event_edit_email(request, pk):
     context = {}
     if request.method == "POST":
@@ -28,6 +32,8 @@ def event_edit_email(request, pk):
     context['system_management_section'] = "current_section"
     context['system_management_email'] = "act_item"
     return render(request, 'system_managements/edit_email_template.html', context)
+
+@login_required
 def view_system_image(request):
     context = {}
     context['images'] = System_Image.objects.all()
