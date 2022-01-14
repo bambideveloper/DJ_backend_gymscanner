@@ -39,11 +39,9 @@ def admin_profile(request):
             request.user.email = request.POST.get("email")
         if request.FILES.get("auth_profile_photo"):
             request.user.employee.photo = request.FILES.get("auth_profile_photo")
+            
         request.user.save()
         request.user.employee.save()
-
-        if request.FILES.get("auth_profile_photo"):
-            request.user.employee.photo = request.FILES.get("auth_profile_photo")
 
     context["title"] = "Dashboard"
     context["dashboard_section"] = "current_section"
