@@ -42,7 +42,7 @@ def admin_profile(request):
 
         request.user.save()
         request.user.employee.save()
-        
+
     context["title"] = "Dashboard"
     context["dashboard_section"] = "current_section"
     context['user']=request.user

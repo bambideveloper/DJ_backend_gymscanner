@@ -28,9 +28,4 @@ class Employee(models.Model):
     class Meta:
         db_table = 'auth_user_photo'
 
-@receiver(post_save, sender = User)
-def create_user_employee(sender, instance, created, **kwargs):
-    try:
-        instance.employee.save()
-    except ObjectDoesNotExist:
-        Employee.objects.create(user = instance)
+
