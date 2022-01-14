@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from masters.models import Country, Feature
@@ -6,6 +7,7 @@ from users.models import Users, Businesses
 from . models import *
 
 # Create your views here.
+@login_required
 def index(request):
     context = {}
     context['title'] = "Gyms"
@@ -14,6 +16,8 @@ def index(request):
     context['gym_section'] = "current_section"
     context['gym_index'] = "act_item"
     return render(request, 'gyms/gym.html', context )
+
+@login_required
 def view_add(request):
     context = {}
     context['title'] = "Gyms"
@@ -23,6 +27,8 @@ def view_add(request):
     context['categories'] = Gym_Category.objects.all()
     context['country_list'] = Country.objects.all()
     return render(request, 'gyms/add_gym.html', context )
+
+@login_required
 def view_category(request):
     context = {}
     context['title'] = "Gym Category"
@@ -30,6 +36,8 @@ def view_category(request):
     context['gym_category'] = "act_item"
     context['categories'] = Gym_Category.objects.all()
     return render(request, 'gyms/category.html', context )
+
+@login_required
 def view_reviews(request):
     context = {}
     context['title'] = "Gyms"
@@ -37,6 +45,7 @@ def view_reviews(request):
     context['gym_reviews'] = "act_item"
     return render(request, 'gyms/reviews.html', context )
 
+@login_required
 def view_gym(request, pk):
     context = {}
     context['sel_gym'] = Gyms.objects.get(id = pk)
@@ -45,6 +54,7 @@ def view_gym(request, pk):
     context['gym_index'] = "act_item"
     return render(request, 'gyms/view_gym.html', context)
 
+@login_required
 def view_subscription_plan(request, pk):
     context = {}
     context['sel_gym'] = Gyms.objects.get(id = pk)
@@ -52,6 +62,8 @@ def view_subscription_plan(request, pk):
     context['gym_index'] = "act_item"
 
     return render(request, 'gyms/subscription_plan.html', context)
+
+@login_required
 def event_insert_gym(request):
     context = {}
     if request.method == "POST":
@@ -123,6 +135,8 @@ def event_insert_gym(request):
     context['categories'] = Gym_Category.objects.all()
     context['country_list'] = Country.objects.all()
     return render(request, 'gyms/add_gym.html', context)
+
+@login_required
 def event_edit_gym(request, pk):
     context = {}
     if (request.method == "POST"):
@@ -223,16 +237,21 @@ def event_edit_gym(request, pk):
     context['categories'] = Gym_Category.objects.all()
     context['country_list'] = Country.objects.all()
     return render(request, 'gyms/edit_gym.html', context)
+
+@login_required
 def event_update_gym_status(request, pk):
     sel_gym = Gyms.objects.get(id = pk)
     sel_gym.business.user.status = False if sel_gym.business.user.status else True
     sel_gym.business.user.save()
     return redirect('/gyms/')
+
+@login_required
 def event_delete_gym(request, pk):
     sel_gym = Users.objects.filter(businesses__gyms__id = pk)
     sel_gym.delete()
     return redirect('/gyms/')
 
+@login_required
 def event_add_category(request):
     context = {}
     if request.method == "POST":
@@ -253,11 +272,15 @@ def event_add_category(request):
     context['gym_category'] = "act_item"
     context['languages'] = Language.objects.all()
     return render(request, 'gyms/add_category.html', context)
+
+@login_required
 def event_update_category(request, pk):
     sel_category = Gym_Category.objects.get(id = pk)
     sel_category.status = False if sel_category.status else True
     sel_category.save()
     return redirect('/gyms/category')
+
+@login_required
 def event_edit_category(request, pk):
     context = {}
     if request.method == "POST":
@@ -277,11 +300,14 @@ def event_edit_category(request, pk):
     context['gym_category'] = "act_item"
     context['languages'] = Language.objects.all()
     return render(request, 'gyms/edit_category.html', context)
+
+@login_required
 def event_delete_category(request, pk):
     sel_category = Gym_Category.objects.get(id = pk)
     sel_category.delete()
     return redirect('/gyms/category')
 
+@login_required
 def event_add_subscription_plan(request, pk):
     context = {}
     context['sel_gym'] = Gyms.objects.get(id = pk)
@@ -289,14 +315,17 @@ def event_add_subscription_plan(request, pk):
     context['gym_index'] = "act_item"
     return render(request, 'gyms/add_subscription.html', context)
 
+@login_required
 def event_edit_subscription_plan(request, pk, ck):
     context = {}
     return render(request, 'gyms/subscription_plan.html', context)
 
+@login_required
 def event_update_subscription_plan(request, pk, ck):
     context = {}
     return render(request, 'gyms/subscription_plan.html', context)
 
+@login_required
 def event_delete_subscription_plan(request, pk, ck):
     context = {}
     return render(request, 'gyms/subscription_plan.html', context)

@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from masters.models import Country
 from language.models import Language
@@ -5,6 +6,7 @@ from users.models import Users
 from . models import *
 
 # Create your views here.
+@login_required
 def index(request):
     context = {}
     context["title"] = "Trainer"
@@ -16,6 +18,7 @@ def index(request):
     context['trainers'] = Trainers.objects.all()
     return render(request, 'trainers/trainer.html', context )
 
+@login_required
 def view_add(request):
     context = {}
     context["title"] = "Add Trainer"
@@ -26,6 +29,7 @@ def view_add(request):
     context['country_list'] = Country.objects.all()
     return render(request, 'trainers/add_trainer.html', context )
 
+@login_required
 def view_category(request):
     context = {}
     context['title'] = "Trainer Category"
@@ -35,6 +39,7 @@ def view_category(request):
 
     return render(request, 'trainers/category.html', context )
 
+@login_required
 def event_insert_trainer(request):
     context = {}
     if request.method == "POST":
@@ -88,6 +93,8 @@ def event_insert_trainer(request):
     context['categories'] = Trainer_Category.objects.all()
     context['country_list'] = Country.objects.all()
     return render(request, 'trainers/add_trainer.html', context )
+
+@login_required
 def event_update_trainer(request, pk):
     context = {}
 
@@ -154,15 +161,21 @@ def event_update_trainer(request, pk):
     context['categories'] = Trainer_Category.objects.all()
     context['country_list'] = Country.objects.all()
     return render(request, 'trainers/edit_trainer.html', context)
+
+@login_required
 def event_update_trainer_status(request, pk):
     sel_trainer = Trainers.objects.get(id = pk)
     sel_trainer.business.user.status = False if sel_trainer.business.user.status else True
     sel_trainer.business.user.save()
     return redirect('/trainers/')
+
+@login_required
 def event_delete_trainer(request, pk):
     sel_trainer = Users.objects.filter(businesses__trainers__id = pk)
     sel_trainer.delete()
     return redirect('/trainers/')
+
+@login_required
 def event_insert_category(request):
     context = {}
 
@@ -184,6 +197,8 @@ def event_insert_category(request):
     context["trainer_section"] = "current_section"
     context["trainer_category"] = "act_item"
     return render(request, 'trainers/add_category.html', context)
+
+@login_required
 def event_edit_category(request, pk):
     context = {}
     if request.method == "POST":
@@ -204,11 +219,15 @@ def event_edit_category(request, pk):
     context["trainer_section"] = "current_section"
     context["trainer_category"] = "act_item"
     return render(request, 'trainers/edit_category.html', context)
+
+@login_required
 def event_update_category(request, pk):
     trainer_category = Trainer_Category.objects.get(id = pk)
     trainer_category.status = False if trainer_category.status else True
     trainer_category.save()
     return redirect("/trainers/category")
+
+@login_required
 def event_delete_category(request, pk):
     Trainer_Category.objects.get(id = pk).delete()    
     return redirect("/trainers/category")

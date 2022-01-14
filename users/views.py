@@ -1,8 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from .models import *
 from masters.models import Country
 
 # Create your views here.
+@login_required
 def index(request):
     context = {}
     context["users"]= Users.objects.filter(businesses__business_type = 0)
@@ -12,6 +14,7 @@ def index(request):
     context["user"] = request.user
     return render(request, 'users/user.html', context )
 
+@login_required
 def view_add(request):
     context = {}
     context["title"] = "Add Users"
@@ -20,6 +23,7 @@ def view_add(request):
     context["country_list"] = Country.objects.all();
     return render(request, 'users/add_user.html', context )
 
+@login_required
 def event_insert(request):
     context = {}
     if request.method == 'POST':
@@ -56,6 +60,7 @@ def event_insert(request):
     context["user_add"] = "act_item"
     return render(request, 'users/add_user.html',context )
 
+@login_required
 def event_update_info(request, pk):
     context = {}
     if request.method == "POST":
@@ -95,12 +100,15 @@ def event_update_info(request, pk):
     context['user_section'] = "current_section"
     context['user_index'] = "act_item"
     return render(request, 'users/edit_user.html', context )
-    
+
+@login_required
 def event_update_status(request, pk):
     sel_user = Users.objects.get(id = pk)
     sel_user.status = False if sel_user.status else True
     sel_user.save()
     return redirect('/users/')
+    
+@login_required
 def event_delete(request, pk):
     Users.objects.filter(id = pk).delete()
     return redirect('/users/')
