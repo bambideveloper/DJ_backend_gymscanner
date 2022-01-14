@@ -1,7 +1,10 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.contrib.auth.models import User
 from uuid import uuid4
 import os
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 # Create your models here.
 def path_and_rename(instance, filename):
     upload_to = 'admin'
@@ -24,3 +27,10 @@ class Employee(models.Model):
 
     class Meta:
         db_table = 'auth_user_photo'
+
+@receiver(post_save, sender = User)
+def create_user_employee(sender, instance, created, **kwargs):
+    try:
+        instance.employee.save()
+    except ObjectDoesNotExist:
+        Employee.objects.create(user = instance)
