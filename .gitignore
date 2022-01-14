@@ -133,6 +133,8 @@ dmypy.json
 
 # media
 
-/media
+media/**
 
-!/media/default
+!media/default
+
+backend_gymscanner/settings.py
