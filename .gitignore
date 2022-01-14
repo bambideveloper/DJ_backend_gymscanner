@@ -10,7 +10,6 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/
@@ -133,6 +132,7 @@ dmypy.json
 
 # media
 
-media/**
+/media/**
 
-!media/default
+!/media/default
+/backend_gymscanner/settings.py
