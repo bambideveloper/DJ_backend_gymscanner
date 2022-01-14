@@ -37,17 +37,16 @@ def admin_profile(request):
             request.user.username = request.POST.get("name")
         if request.POST.get("email"):
             request.user.email = request.POST.get("email")
-        request.user.save()
         try:
-            if request.FILES.get("auth_profile_photo"):
-                request.user.employee.photo = request.FILES.get("auth_profile_photo")
-                request.user.employee.save()
+            request.user.employee.save()
         except ObjectDoesNotExist:
             Employee.objects.create(
                 user = request.user,
-                photo = request.FILES.get("auth_profile_photo")
             )
+        if request.FILES.get("auth_profile_photo"):
+                request.user.employee.photo = request.FILES.get("auth_profile_photo")
 
+        request.user.save()
     context["title"] = "Dashboard"
     context["dashboard_section"] = "current_section"
     context['user']=request.user
