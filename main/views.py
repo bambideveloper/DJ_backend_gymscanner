@@ -4,8 +4,9 @@ from django.contrib.auth import login,logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
-from main.models import Employee
+from django.core.exceptions import ObjectDoesNotExist
 
+from . models import *
 from users.models import *
 from trainers.models import *
 from gyms.models import *
@@ -37,15 +38,16 @@ def admin_profile(request):
         if request.POST.get("email"):
             request.user.email = request.POST.get("email")
         if request.FILES.get("auth_profile_photo"):
-            if request.user.employee:
-                request.user.employee.photo = request.FILES.get("auth_profile_photo")
-            else:
-                request.user.employee = Employee.objects.create(
-                    photo = request.FILES.get("auth_profile_photo")
-                )
+            request.user.employee.photo = request.FILES.get("auth_profile_photo")
         request.user.save()
-        request.user.employee.save()        
-        
+        try:
+            request.user.employee.save()
+        except ObjectDoesNotExist:
+            Employee.objects.create(
+                user = request.user,
+                photo = request.FILES.get("auth_profile_photo")
+            )
+
     context["title"] = "Dashboard"
     context["dashboard_section"] = "current_section"
     context['user']=request.user
