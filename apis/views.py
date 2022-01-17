@@ -36,7 +36,7 @@ class RegisterViewSet(viewsets.ModelViewSet):
 
             subject = "GymScanner"
 
-            from_email = 'From <raza.teknex@gmail.com'
+            from_email = 'app@gymscanner.info'
             to_email = request.data['email']
             digits = "0123456789"
             opt_code = ""
