@@ -127,12 +127,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# make Migrations
-**/migrations
-
 # media
 
 /media/**
 
 !/media/default
-/backend_gymscanner/settings.py
