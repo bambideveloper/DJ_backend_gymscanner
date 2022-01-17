@@ -66,3 +66,10 @@ class Businesses(models.Model):
     
     class Meta:
         db_table = 'businesses'
+
+class OTP(models.Model):
+    user = models.ForeignKey(Users, on_delete = models.CASCADE)
+    code = models.CharField("Code", max_length = 4, null = False)
+
+    class Meta:
+        db_table = 'otps'

@@ -45,7 +45,7 @@ def admin_profile(request):
 
     context["title"] = "Dashboard"
     context["dashboard_section"] = "current_section"
-    context['user']=request.user
+    context['user'] = request.user
     return render(request, 'auth/profile.html',context)
 
 @login_required

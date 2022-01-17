@@ -31,4 +31,5 @@ urlpatterns = [
     path('orders/', include(('orders.urls', 'order'), namespace = 'order')),
     path('demo_videos/', include(('demo_videos.urls', 'demo_video'), namespace = 'demo_video')),
     path('logs/', include(('logs.urls', 'log'), namespace = 'log')),
+    path('apis/', include(('apis.urls', 'api'), namespace = 'api'))
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
