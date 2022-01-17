@@ -24,9 +24,9 @@ SECRET_KEY = 'django-insecure-hz5#^50ar7*=pdky#t*%_c=@^662sgn@#)-lrzg+nt3-bsy&(m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-DEFAULT_FROM_EMAIL = ""
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_PASSWORD = ""
+DEFAULT_FROM_EMAIL = "app@gymscanner.info"
+EMAIL_HOST = 'gymscanner.info'
+EMAIL_HOST_PASSWORD = "Gyms2012!"
 EMAIL_HOST_USER = ""
 EMAIL_USE_TLS = True
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
