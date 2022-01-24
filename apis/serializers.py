@@ -3,7 +3,7 @@ from users.models import *
 from trainers.models import *
 from gyms.models import *
 
-class RegisterSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Users
         fields = (

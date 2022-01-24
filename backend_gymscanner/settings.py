@@ -95,25 +95,25 @@ WSGI_APPLICATION = 'backend_gymscanner.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': 'db.sqlite3',
-#     }
-# }
-
-# AWS RDS
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'backend_gym',
-        'USER': 'backend_admin',
-        'trusted_connection': 'yes',
-        'PASSWORD': 'com.gymscanner.backend.db',
-        'HOST': 'backenddatabase-1.cvh9aal6sdwe.us-east-2.rds.amazonaws.com',  # Or an IP Address that your DB is hosted on
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3',
     }
 }
+
+# AWS RDS
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'backend_gym',
+#         'USER': 'backend_admin',
+#         'trusted_connection': 'yes',
+#         'PASSWORD': 'com.gymscanner.backend.db',
+#         'HOST': 'backenddatabase-1.cvh9aal6sdwe.us-east-2.rds.amazonaws.com',  # Or an IP Address that your DB is hosted on
+#         'PORT': '3306',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
