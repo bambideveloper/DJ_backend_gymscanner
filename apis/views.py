@@ -220,7 +220,8 @@ class UserViewSet(viewsets.ModelViewSet):
             message = strip_tags("<h1>{}</h1> is your code".format(opt_code))
             send_mail(subject, message, from_email, [to_email], html_message = "<h1>{}</h1> is your code".format(opt_code))
             data = {'message' : "Account Created Successfully"}
-            pass
+            response_data.set_response(data = data)
+            return response_data.get_response(status.HTTP_200_OK)
         else:
             data = {'message' : "User is not verified"}
             response_data.set_response(data = data)
