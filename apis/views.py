@@ -207,25 +207,29 @@ class UserViewSet(viewsets.ModelViewSet):
         user_exist = Users.objects.filter(
             email = request.data['email']
         )
-
-        if user_exist.is_verified:
-            subject = "GymScanner"
-            from_email = 'app@gymscanner.info'
-            to_email = request.data['email']
-            digits = "0123456789"
-            opt_code = ""
-            for i in range(4):
-                opt_code += digits[math.floor(random.random() * 10)]
-            OTP.objects.create(user = user_exist, code = opt_code)
-            message = strip_tags("<h1>{}</h1> is your code".format(opt_code))
-            send_mail(subject, message, from_email, [to_email], html_message = "<h1>{}</h1> is your code".format(opt_code))
-            data = {'message' : "Account Created Successfully"}
-            response_data.set_response(data = data)
-            return response_data.get_response(status.HTTP_200_OK)
+        if len(user_exist) > 0:
+            if user_exist[0].is_verified:
+                subject = "GymScanner"
+                from_email = 'app@gymscanner.info'
+                to_email = request.data['email']
+                digits = "0123456789"
+                opt_code = ""
+                for i in range(4):
+                    opt_code += digits[math.floor(random.random() * 10)]
+                OTP.objects.create(user = user_exist, code = opt_code)
+                message = strip_tags("<h1>{}</h1> is your code".format(opt_code))
+                send_mail(subject, message, from_email, [to_email], html_message = "<h1>{}</h1> is your code".format(opt_code))
+                data = {'message' : "Account Created Successfully"}
+                response_data.set_response(data = data)
+                return response_data.get_response(status.HTTP_200_OK)
+            else:
+                data = {'error' : "User is not verified"}
+                response_data.set_response(data = data)
+                return response_data.get_response(status.HTTP_401_UNAUTHORIZED)
         else:
-            data = {'error' : "User is not verified"}
+            data = {'error' : "User is not found"}
             response_data.set_response(data = data)
-            return response_data.get_response(status.HTTP_401_UNAUTHORIZED)
+            return response_data.get_response(status.HTTP_404_NOT_FOUND)
     
     # Function Name : 
     # Description : This is Reset Password API when user reset password
