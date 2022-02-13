@@ -216,7 +216,7 @@ class UserViewSet(viewsets.ModelViewSet):
                 opt_code = ""
                 for i in range(4):
                     opt_code += digits[math.floor(random.random() * 10)]
-                OTP.objects.create(user = user_exist, code = opt_code)
+                OTP.objects.create(user = user_exist[0], code = opt_code)
                 message = strip_tags("<h1>{}</h1> is your code".format(opt_code))
                 send_mail(subject, message, from_email, [to_email], html_message = "<h1>{}</h1> is your code".format(opt_code))
                 data = {'message' : "Account Created Successfully"}
