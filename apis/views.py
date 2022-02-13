@@ -201,12 +201,11 @@ class UserViewSet(viewsets.ModelViewSet):
     # Response : 
     #   if success: {}
     #   else : {}
-    @action(methods = ['GET'], detail = False, url_path = 'forgotpassword')
-    def forgotpassword(self, request, email):
-        print(email)
+    @action(methods = ['POST'], detail = False, url_path = 'forgotpassword')
+    def forgotpassword(self, request):
         response_data = response_object()
         user_exist = Users.objects.filter(
-            email = email
+            email = request.data['email']
         )
 
         if user_exist.is_verified:
