@@ -202,10 +202,11 @@ class UserViewSet(viewsets.ModelViewSet):
     #   if success: {}
     #   else : {}
     @action(methods = ['GET'], detail = False, url_path = 'forgotpassword')
-    def forgotpassword(self, request):
+    def forgotpassword(self, request, email):
+        print(email)
         response_data = response_object()
         user_exist = Users.objects.filter(
-            email = request.data.get('email')
+            email = email
         )
 
         if user_exist.is_verified:
@@ -223,7 +224,7 @@ class UserViewSet(viewsets.ModelViewSet):
             response_data.set_response(data = data)
             return response_data.get_response(status.HTTP_200_OK)
         else:
-            data = {'message' : "User is not verified"}
+            data = {'error' : "User is not verified"}
             response_data.set_response(data = data)
             return response_data.get_response(status.HTTP_401_UNAUTHORIZED)
     
