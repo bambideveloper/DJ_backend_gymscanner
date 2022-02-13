@@ -18,3 +18,13 @@ class UserSerializer(serializers.ModelSerializer):
     
     def create(self, validated_data):
         pass
+
+class TrainerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Trainers
+    pass
+
+class GymSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Gyms
+    pass
