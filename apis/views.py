@@ -300,7 +300,7 @@ class UserViewSet(viewsets.ModelViewSet):
             response_data.set_response(data = data)
             return response_data.get_response(status.HTTP_200_OK)
         else:
-            data = {'error': 'Not Found'}
+            data = {'error': 'Please try to register again'}
             response_data.set_response(data = data)
             return response_data.get_response(status.HTTP_404_NOT_FOUND)
 
