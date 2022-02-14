@@ -242,9 +242,20 @@ class UserViewSet(viewsets.ModelViewSet):
     @action(methods = ['POST'], detail = False, url_path = 'resetpassword')
     def resetpassword(self, request):
         response_data = response_object()
-        data = {'message' : "This is Reset Password API"}
-        response_data.set_response(data = data)
-        return response_data.get_response(status.HTTP_200_OK)
+        user_exist = Users.objects.filter(
+            email = request.data['email']
+        )
+
+        if len(user_exist) > 0:
+            user_exist[0].set_password(request.data['new_password'])
+            user_exist.save()
+            data = {'message': "Password reset successfully"}
+            response_data.set_response(data = data)
+            return response_data.get_response(status.HTTP_200_OK)
+        else:
+            data = {'error' : "User is not found"}
+            response_data.set_response(data = data)
+            return response_data.get_response(status.HTTP_404_NOT_FOUND)
 
     # Function Name : 
     # Description : This is Resend Code when user request code again
