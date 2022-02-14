@@ -248,7 +248,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
         if len(user_exist) > 0:
             user_exist[0].set_password(request.data['new_password'])
-            user_exist.save()
+            user_exist[0].save()
             data = {'message': "Password reset successfully"}
             response_data.set_response(data = data)
             return response_data.get_response(status.HTTP_200_OK)
